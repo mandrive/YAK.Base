@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,11 +30,16 @@
             </div>
         </div>
     </div>
+
     <div class="container body-content">
-        @RenderBody()
-        <hr />
+        <header>
+            <input type="text" class="input-lg search" placeholder="Search..."> <== Could not centerize this...
+        </header>
+        <div>
+            @RenderBody()
+        </div>
         <footer>
-            <p>&copy; @DateTime.Now.Year</p>
+            <p>TheZtack&copy; @DateTime.Now.Year</p>
         </footer>
     </div>
 </body>

@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.search {
+    float: none;
+    margin: 20px auto;
+    width: 50%;
+}
