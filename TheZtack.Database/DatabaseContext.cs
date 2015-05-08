@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheZtack.Database.Entities;
 using TheZtack.Database.Migrations;
 
 namespace TheZtack.Database
@@ -26,13 +29,10 @@ namespace TheZtack.Database
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         } 
 
-        public DbSet<Question> Questions { get; set; } 
-    }
-
-    public class Question
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<User> Users{ get; set; } 
     }
 }

@@ -49,9 +49,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="Entities\Answer.cs" />
+    <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\Question.cs" />
+    <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Migrations\201505062105447_InitMigration.cs" />
     <Compile Include="Migrations\201505062105447_InitMigration.Designer.cs">
       <DependentUpon>201505062105447_InitMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505081720320_SchemaMigration.cs" />
+    <Compile Include="Migrations\201505081720320_SchemaMigration.Designer.cs">
+      <DependentUpon>201505081720320_SchemaMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,6 +75,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505062105447_InitMigration.resx">
       <DependentUpon>201505062105447_InitMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505081720320_SchemaMigration.resx">
+      <DependentUpon>201505081720320_SchemaMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

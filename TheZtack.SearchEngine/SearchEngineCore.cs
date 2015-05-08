@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheZtack.Database;
+using TheZtack.Database.Entities;
 
 namespace TheZtack.SearchEngine
 {
