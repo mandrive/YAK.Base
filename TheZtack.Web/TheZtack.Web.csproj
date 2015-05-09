@@ -169,7 +169,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -198,9 +200,9 @@
       <Project>{48dc9cc8-b916-4ca1-8a2d-816cc98a2a38}</Project>
       <Name>TheZtack.SearchEngine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TheZtack.Services\TheZtack.Services.csproj">
-      <Project>{1f25149a-9a8e-44b1-b498-12edf2ab53cb}</Project>
-      <Name>TheZtack.Services</Name>
+    <ProjectReference Include="..\TheZtack.Services\TheZtack.Data.csproj">
+      <Project>{1F25149A-9A8E-44B1-B498-12EDF2AB53CB}</Project>
+      <Name>TheZtack.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

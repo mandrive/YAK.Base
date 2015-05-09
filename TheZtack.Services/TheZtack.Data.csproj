@@ -7,8 +7,8 @@
     <ProjectGuid>{1F25149A-9A8E-44B1-B498-12EDF2AB53CB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TheZtack.Services</RootNamespace>
-    <AssemblyName>TheZtack.Services</AssemblyName>
+    <RootNamespace>TheZtack.Data</RootNamespace>
+    <AssemblyName>TheZtack.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -64,6 +64,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

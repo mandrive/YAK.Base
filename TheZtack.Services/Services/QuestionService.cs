@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheZtack.Data.Interfaces;
 using TheZtack.Database;
 using TheZtack.Database.Entities;
-using TheZtack.Services.Interfaces;
 
-namespace TheZtack.Services
+namespace TheZtack.Data.Services
 {
     public class QuestionService : IService<Question>
     {
-        private DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext;
 
         public QuestionService(DatabaseContext databaseContext)
         {
@@ -30,7 +30,6 @@ namespace TheZtack.Services
         {
             return _databaseContext.Questions.Where(predicate);
         }
-
 
         public int Add(Question entity)
         {

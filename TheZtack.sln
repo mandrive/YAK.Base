@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22609.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheZtack.Web", "TheZtack.Web\TheZtack.Web.csproj", "{96D64A04-715A-477C-AC61-BA4180C22717}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheZtack.Database", "TheZta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheZtack.SearchEngine", "TheZtack.SearchEngine\TheZtack.SearchEngine.csproj", "{48DC9CC8-B916-4CA1-8A2D-816CC98A2A38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheZtack.Services", "TheZtack.Services\TheZtack.Services.csproj", "{1F25149A-9A8E-44B1-B498-12EDF2AB53CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheZtack.Data", "TheZtack.Services\TheZtack.Data.csproj", "{1F25149A-9A8E-44B1-B498-12EDF2AB53CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

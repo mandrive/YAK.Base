@@ -8,6 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using TheZtack.Database;
 using TheZtack.SearchEngine;
+using TheZtack.Web;
 
 namespace TheZtack
 {

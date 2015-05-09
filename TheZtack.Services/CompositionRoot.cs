@@ -1,13 +1,9 @@
 ﻿using LightInject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TheZtack.Data.Interfaces;
+using TheZtack.Data.Services;
 using TheZtack.Database.Entities;
-using TheZtack.Services.Interfaces;
 
-namespace TheZtack.Services
+namespace TheZtack.Data
 {
     public class CompositionRoot : ICompositionRoot
     {
