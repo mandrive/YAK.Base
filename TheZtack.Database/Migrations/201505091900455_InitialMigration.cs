@@ -1,7 +1,8 @@
-using System.Data.Entity.Migrations;
-
 namespace TheZtack.Database.Migrations
 {
+    using System;
+    using System.Data.Entity.Migrations;
+    
     public partial class InitialMigration : DbMigration
     {
         public override void Up()
@@ -11,12 +12,12 @@ namespace TheZtack.Database.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Content = c.String(),
-                        UserId = c.Int(nullable: false),
+                        Content = c.String(nullable: false),
                         RankPoint = c.Int(nullable: false),
                         CreateDate = c.DateTime(nullable: false),
                         LastModificationDate = c.DateTime(nullable: false),
-                        QuestionId = c.Int(),
+                        UserId = c.Int(nullable: false),
+                        QuestionId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
@@ -29,9 +30,9 @@ namespace TheZtack.Database.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Username = c.String(),
-                        Password = c.String(),
-                        Email = c.String(),
+                        Username = c.String(nullable: false),
+                        Password = c.String(nullable: false),
+                        Email = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -40,33 +41,33 @@ namespace TheZtack.Database.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Content = c.String(),
-                        UserId = c.Int(nullable: false),
+                        Content = c.String(nullable: false),
                         RankPoint = c.Int(nullable: false),
                         CreateDate = c.DateTime(nullable: false),
                         LastModificationDate = c.DateTime(nullable: false),
-                        AnswerId = c.Int(),
+                        UserId = c.Int(nullable: false),
                         QuestionId = c.Int(),
+                        AnswerId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.Answer", t => t.AnswerId)
                 .ForeignKey("dbo.Question", t => t.QuestionId)
+                .ForeignKey("dbo.Answer", t => t.AnswerId)
                 .Index(t => t.UserId)
-                .Index(t => t.AnswerId)
-                .Index(t => t.QuestionId);
+                .Index(t => t.QuestionId)
+                .Index(t => t.AnswerId);
             
             CreateTable(
                 "dbo.Question",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
-                        Content = c.String(),
-                        UserId = c.Int(nullable: false),
+                        Title = c.String(nullable: false),
+                        Content = c.String(nullable: false),
                         RankPoint = c.Int(nullable: false),
                         CreateDate = c.DateTime(nullable: false),
                         LastModificationDate = c.DateTime(nullable: false),
+                        UserId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.User", t => t.UserId, cascadeDelete: true)
@@ -77,44 +78,44 @@ namespace TheZtack.Database.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.TagQuestion",
+                "dbo.QuestionTag",
                 c => new
                     {
                         TagId = c.Int(nullable: false),
-                        QuestionId = c.Int(nullable: false),
+                        Tag_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.TagId, t.QuestionId })
-                .ForeignKey("dbo.Tag", t => t.TagId, cascadeDelete: true)
-                .ForeignKey("dbo.Question", t => t.QuestionId, cascadeDelete: true)
+                .PrimaryKey(t => new { t.TagId, t.Tag_Id })
+                .ForeignKey("dbo.Question", t => t.TagId, cascadeDelete: true)
+                .ForeignKey("dbo.Tag", t => t.Tag_Id, cascadeDelete: true)
                 .Index(t => t.TagId)
-                .Index(t => t.QuestionId);
+                .Index(t => t.Tag_Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.TagQuestion", "QuestionId", "dbo.Question");
-            DropForeignKey("dbo.TagQuestion", "TagId", "dbo.Tag");
-            DropForeignKey("dbo.Comment", "QuestionId", "dbo.Question");
-            DropForeignKey("dbo.Question", "UserId", "dbo.User");
-            DropForeignKey("dbo.Answer", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Comment", "AnswerId", "dbo.Answer");
+            DropForeignKey("dbo.Question", "UserId", "dbo.User");
+            DropForeignKey("dbo.QuestionTag", "Tag_Id", "dbo.Tag");
+            DropForeignKey("dbo.QuestionTag", "TagId", "dbo.Question");
+            DropForeignKey("dbo.Comment", "QuestionId", "dbo.Question");
+            DropForeignKey("dbo.Answer", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Comment", "UserId", "dbo.User");
             DropForeignKey("dbo.Answer", "UserId", "dbo.User");
-            DropIndex("dbo.TagQuestion", new[] { "QuestionId" });
-            DropIndex("dbo.TagQuestion", new[] { "TagId" });
+            DropIndex("dbo.QuestionTag", new[] { "Tag_Id" });
+            DropIndex("dbo.QuestionTag", new[] { "TagId" });
             DropIndex("dbo.Question", new[] { "UserId" });
-            DropIndex("dbo.Comment", new[] { "QuestionId" });
             DropIndex("dbo.Comment", new[] { "AnswerId" });
+            DropIndex("dbo.Comment", new[] { "QuestionId" });
             DropIndex("dbo.Comment", new[] { "UserId" });
             DropIndex("dbo.Answer", new[] { "QuestionId" });
             DropIndex("dbo.Answer", new[] { "UserId" });
-            DropTable("dbo.TagQuestion");
+            DropTable("dbo.QuestionTag");
             DropTable("dbo.Tag");
             DropTable("dbo.Question");
             DropTable("dbo.Comment");

@@ -10,13 +10,20 @@ namespace TheZtack.Database.Entities
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
         public string Title { get; set; }
+
+        [Required]
         public string Content { get; set; }
 
-        [ForeignKey("Author")]
-        public int UserId { get; set; }
+        [Required]
         public int RankPoint { get; set; }
+
+        [Required]
         public DateTime CreateDate { get; set; }
+
+        [Required]
         public DateTime LastModificationDate { get; set; }
 
         public virtual ICollection<Tag> Tags { get; set; }

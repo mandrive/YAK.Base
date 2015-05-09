@@ -1,18 +1,15 @@
-﻿using LightInject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using LightInject;
 using TheZtack.Database;
 using TheZtack.SearchEngine;
 using TheZtack.Web;
 
 namespace TheZtack
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -27,7 +24,7 @@ namespace TheZtack
         private void SetupServiceContainer()
         {
             var container = new ServiceContainer();
-            container.RegisterControllers(typeof(TheZtack.MvcApplication).Assembly);
+            container.RegisterControllers(typeof(MvcApplication).Assembly);
 
             RegisterTypes(container);
 

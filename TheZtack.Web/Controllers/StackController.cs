@@ -4,11 +4,11 @@ using TheZtack.Database.Entities;
 
 namespace TheZtack.Web.Controllers
 {
-    public class HomeController : Controller
+    public class StackController : Controller
     {
         private readonly IService<Question> _questionService;
 
-        public HomeController(IService<Question> questionService)
+        public StackController(IService<Question> questionService)
         {
             _questionService = questionService;
         }

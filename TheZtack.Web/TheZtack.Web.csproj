@@ -127,7 +127,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuestionController.cs" />
+    <Compile Include="Controllers\StackController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,7 +183,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Stack\Index.cshtml" />
+    <Content Include="Views\Question\New.cshtml" />
+    <Content Include="Views\Question\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -196,13 +199,13 @@
       <Project>{9b1a2f83-5909-4303-8480-1c091294ada8}</Project>
       <Name>TheZtack.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TheZtack.Data\TheZtack.Data.csproj">
+      <Project>{1F25149A-9A8E-44B1-B498-12EDF2AB53CB}</Project>
+      <Name>TheZtack.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TheZtack.SearchEngine\TheZtack.SearchEngine.csproj">
       <Project>{48dc9cc8-b916-4ca1-8a2d-816cc98a2a38}</Project>
       <Name>TheZtack.SearchEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TheZtack.Services\TheZtack.Data.csproj">
-      <Project>{1F25149A-9A8E-44B1-B498-12EDF2AB53CB}</Project>
-      <Name>TheZtack.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

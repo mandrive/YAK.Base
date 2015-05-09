@@ -18,7 +18,7 @@ namespace TheZtack.Data.Services
 
         public IEnumerable<Question> GetAll()
         {
-            return _databaseContext.Questions.ToList();
+            return _databaseContext.Questions;
         }
 
         public Question GetById(int id)
@@ -33,6 +33,10 @@ namespace TheZtack.Data.Services
 
         public int Add(Question entity)
         {
+            entity.CreateDate = DateTime.UtcNow;
+            entity.LastModificationDate = entity.CreateDate;
+            entity.Author = _databaseContext.Users.First(); // until account are implemented
+
             _databaseContext.Questions.Add(entity);
             _databaseContext.SaveChanges();
 
@@ -53,7 +57,6 @@ namespace TheZtack.Data.Services
             existingEntity.LastModificationDate = entity.LastModificationDate;
             existingEntity.RankPoint = entity.RankPoint;
             existingEntity.Title = entity.Title;
-            existingEntity.UserId = entity.UserId;
 
             _databaseContext.SaveChanges();
         }
