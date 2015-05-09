@@ -4,28 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TheZtack.Database;
+using TheZtack.Database.Entities;
 using TheZtack.SearchEngine;
+using TheZtack.Services.Interfaces;
 
 namespace TheZtack.Controllers
 {
     public class HomeController : Controller
     {
-        private SearchEngineCore _searchEngineCore;
-        private DatabaseContext _databaseContext;
+        private IService<Question> _questionService;
 
-        public HomeController(DatabaseContext databaseContext, SearchEngineCore searchEngineCore)
+        public HomeController(IService<Question> questionService)
         {
-            _searchEngineCore = searchEngineCore;
-            _databaseContext = databaseContext;
+            _questionService = questionService;
         }
 
         public ActionResult Index()
         {
-            _searchEngineCore.AddSomethingToIndex();
+            var questions = _questionService.GetAll();
 
-            var allQuestions = _searchEngineCore.GetAllQuestions();
-
-            return View(allQuestions);
+            return View(questions);
         }
     }
 }

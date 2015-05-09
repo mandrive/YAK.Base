@@ -198,6 +198,10 @@
       <Project>{48dc9cc8-b916-4ca1-8a2d-816cc98a2a38}</Project>
       <Name>TheZtack.SearchEngine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TheZtack.Services\TheZtack.Services.csproj">
+      <Project>{1f25149a-9a8e-44b1-b498-12edf2ab53cb}</Project>
+      <Name>TheZtack.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
