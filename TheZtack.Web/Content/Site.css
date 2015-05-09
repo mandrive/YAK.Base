@@ -23,8 +23,13 @@ textarea {
     max-width: 280px;
 }
 
-.search {
+input[type="text"].search {
     float: none;
     margin: 20px auto;
-    width: 50%;
+    width: 100%;
+    max-width: none;
+}
+
+footer {
+    text-align: center;
 }
