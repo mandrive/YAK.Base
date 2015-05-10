@@ -52,7 +52,7 @@ namespace TheZtack.Database
                 .WithMany(t => t.Questions)
                 .Map(
                     x => x.MapLeftKey("QuestionId")
-                          .MapLeftKey("TagId"));
+                          .MapRightKey("TagId"));
 
             modelBuilder.Entity<Answer>()
                 .HasMany(a => a.Comments)

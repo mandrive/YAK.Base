@@ -86,14 +86,14 @@ namespace TheZtack.Database.Migrations
                 "dbo.QuestionTag",
                 c => new
                     {
+                        QuestionId = c.Int(nullable: false),
                         TagId = c.Int(nullable: false),
-                        Tag_Id = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.TagId, t.Tag_Id })
-                .ForeignKey("dbo.Question", t => t.TagId, cascadeDelete: true)
-                .ForeignKey("dbo.Tag", t => t.Tag_Id, cascadeDelete: true)
-                .Index(t => t.TagId)
-                .Index(t => t.Tag_Id);
+                .PrimaryKey(t => new { t.QuestionId, t.TagId })
+                .ForeignKey("dbo.Question", t => t.QuestionId, cascadeDelete: true)
+                .ForeignKey("dbo.Tag", t => t.TagId, cascadeDelete: true)
+                .Index(t => t.QuestionId)
+                .Index(t => t.TagId);
             
         }
         
@@ -101,14 +101,14 @@ namespace TheZtack.Database.Migrations
         {
             DropForeignKey("dbo.Comment", "AnswerId", "dbo.Answer");
             DropForeignKey("dbo.Question", "UserId", "dbo.User");
-            DropForeignKey("dbo.QuestionTag", "Tag_Id", "dbo.Tag");
-            DropForeignKey("dbo.QuestionTag", "TagId", "dbo.Question");
+            DropForeignKey("dbo.QuestionTag", "TagId", "dbo.Tag");
+            DropForeignKey("dbo.QuestionTag", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Comment", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Answer", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Comment", "UserId", "dbo.User");
             DropForeignKey("dbo.Answer", "UserId", "dbo.User");
-            DropIndex("dbo.QuestionTag", new[] { "Tag_Id" });
             DropIndex("dbo.QuestionTag", new[] { "TagId" });
+            DropIndex("dbo.QuestionTag", new[] { "QuestionId" });
             DropIndex("dbo.Question", new[] { "UserId" });
             DropIndex("dbo.Comment", new[] { "AnswerId" });
             DropIndex("dbo.Comment", new[] { "QuestionId" });

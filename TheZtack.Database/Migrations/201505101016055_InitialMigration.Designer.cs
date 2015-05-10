@@ -13,7 +13,7 @@ namespace TheZtack.Database.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201505091900455_InitialMigration"; }
+            get { return "201505101016055_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source
