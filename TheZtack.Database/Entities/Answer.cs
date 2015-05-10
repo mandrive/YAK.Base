@@ -16,6 +16,8 @@ namespace TheZtack.Database.Entities
 
         public int RankPoint { get; set; }
 
+        public bool IsCorrect { get; set; }
+
         [Required]
         public DateTime CreateDate { get; set; }
 

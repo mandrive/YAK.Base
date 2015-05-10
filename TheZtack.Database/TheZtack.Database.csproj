@@ -55,13 +55,9 @@
     <Compile Include="Entities\RankingPoint.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201505101016055_InitialMigration.cs" />
-    <Compile Include="Migrations\201505101016055_InitialMigration.Designer.cs">
-      <DependentUpon>201505101016055_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505101055324_RankingPoints.cs" />
-    <Compile Include="Migrations\201505101055324_RankingPoints.Designer.cs">
-      <DependentUpon>201505101055324_RankingPoints.cs</DependentUpon>
+    <Compile Include="Migrations\201505101308548_InitialMigration.cs" />
+    <Compile Include="Migrations\201505101308548_InitialMigration.Designer.cs">
+      <DependentUpon>201505101308548_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,11 +70,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505101016055_InitialMigration.resx">
-      <DependentUpon>201505101016055_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505101055324_RankingPoints.resx">
-      <DependentUpon>201505101055324_RankingPoints.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505101308548_InitialMigration.resx">
+      <DependentUpon>201505101308548_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
