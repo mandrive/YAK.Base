@@ -29,6 +29,7 @@ namespace TheZtack.Database.Entities
         public virtual ICollection<Tag> Tags { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<RankingPoint> RankingPoints { get; set; }
         public virtual User Author { get; set; }
     }
 }

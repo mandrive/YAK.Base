@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +22,7 @@ namespace TheZtack.Database.Entities
         [Required]
         public DateTime LastModificationDate { get; set; }
 
+        public virtual ICollection<RankingPoint> RankingPoints { get; set; }
         public virtual User Author { get; set; }
     }
 }

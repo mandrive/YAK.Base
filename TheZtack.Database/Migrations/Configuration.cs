@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using TheZtack.Database.Entities;
@@ -18,17 +20,39 @@ namespace TheZtack.Database.Migrations
 
         protected override void Seed(DatabaseContext context)
         {
-            if (!_areTherePendingMigrations)
-            {
-                return;
-            }
+            var firstUser = new User { Id = 1, Username = "admin", Password = "Password", Email = "admin@admintest.com" };
 
             context.Users
                 .AddOrUpdate(
-                new User { Username = "£ukasz Wasak", Password = "Password", Email = "lwasak@mail.com" },
-                new User { Username = "Maciej Kozera", Password = "Password", Email = "mkozerak@mail.com" },
-                new User { Username = "Kajetan Targonski", Password = "Password", Email = "ktargonski@mail.com" }
+                firstUser,
+                new User { Id = 2, Username = "£ukasz Wasak", Password = "Password", Email = "lwasak@mail.com" },
+                new User { Id = 3, Username = "Maciej Kozera", Password = "Password", Email = "mkozerak@mail.com" },
+                new User { Id = 4, Username = "Kajetan Targonski", Password = "Password", Email = "ktargonski@mail.com" }
                 );
+
+            var question = new Question
+                {
+                    Id = 1,
+                    Title = "asd",
+                    Content = "asd",
+                    LastModificationDate = DateTime.Now,
+                    CreateDate = DateTime.Now,
+                    Author = firstUser,
+                    RankPoint = 1,
+                    RankingPoints = new List<TheZtack.Database.Entities.RankingPoint>()
+                };
+
+            context.Questions.AddOrUpdate(question);
+
+            var rankingPoint = new RankingPoint
+                {
+                    Id = 1,
+                    PointValue = true,
+                    User = firstUser,
+                    Questions = new List<TheZtack.Database.Entities.Question>()
+                };
+
+            question.RankingPoints.Add(rankingPoint);
 
             context.SaveChanges();
         }
