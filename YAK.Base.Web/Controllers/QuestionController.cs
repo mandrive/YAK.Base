@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using YAK.Base.Database;
 using YAK.Base.Database.Entities;
@@ -17,6 +21,20 @@ namespace YAK.Base.Web.Controllers
         public ActionResult View(int id)
         {
             return View(_databaseContext.Questions.Find(id));
+        }
+
+        public ActionResult FilterQuestions(string query)
+        {
+            var filteredQuestions = _databaseContext.Questions.Where(q => q.Title.Contains(query)).ToList().ToArray();
+
+            return Json(JsonConvert.SerializeObject(filteredQuestions.Select(n => new
+            {
+                value = n.Title
+            }), Formatting.Indented,
+                new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

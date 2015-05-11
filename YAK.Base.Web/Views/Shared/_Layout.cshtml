@@ -52,8 +52,10 @@
         },
         {
             name: 'questions',
-            source: function (q, p) { return p([{ 'value': 'first' }, { 'value': 'second' }, { 'value': 'third' }]); },
-            remote: 
+            source: function (query, process) {
+                return $.getJSON('/Question/FilterQuestions', { query: query }, function (data) {
+                    return process(JSON.parse(data));
+                }); }
         });
     </script>
 </body>
