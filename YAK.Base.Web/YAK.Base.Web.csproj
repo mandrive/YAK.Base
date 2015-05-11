@@ -206,10 +206,6 @@
       <Project>{9b1a2f83-5909-4303-8480-1c091294ada8}</Project>
       <Name>YAK.Base.Database</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YAK.Base.Data\YAK.Base.Data.csproj">
-      <Project>{1F25149A-9A8E-44B1-B498-12EDF2AB53CB}</Project>
-      <Name>YAK.Base.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\YAK.Base.SearchEngine\YAK.Base.SearchEngine.csproj">
       <Project>{48dc9cc8-b916-4ca1-8a2d-816cc98a2a38}</Project>
       <Name>YAK.Base.SearchEngine</Name>

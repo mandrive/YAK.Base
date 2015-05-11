@@ -1,21 +1,24 @@
 ﻿using System.Web.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using YAK.Base.Data.Interfaces;
+using YAK.Base.Database;
 using YAK.Base.Database.Entities;
 
 namespace YAK.Base.Web.Controllers
 {
     public class StackController : Controller
     {
-        private readonly IService<Question> _questionService;
+        private DatabaseContext _databaseContext;
 
-        public StackController(IService<Question> questionService)
+        public StackController(DatabaseContext context)
         {
-            _questionService = questionService;
+            _databaseContext = context;
         }
 
         public ActionResult Index()
         {
-            var questions = _questionService.GetAll();
+            var questions = _databaseContext.Questions;
 
             return View(questions);
         }
