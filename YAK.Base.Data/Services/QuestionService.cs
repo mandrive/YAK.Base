@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using YAK.Base.Data.Interfaces;
+using YAK.Base.Database;
+using YAK.Base.Database.Entities;
+
+namespace YAK.Base.Data.Services
+{
+    public class QuestionService : IService<Question>
+    {
+        private readonly DatabaseContext _databaseContext;
+
+        public QuestionService(DatabaseContext databaseContext)
+        {
+            _databaseContext = databaseContext;
+        }
+
+        public IEnumerable<Question> GetAll()
+        {
+            return _databaseContext.Questions;
+        }
+
+        public Question GetById(int id)
+        {
+            return _databaseContext.Questions.Find(id);
+        }
+
+        public IEnumerable<Question> Filter(Func<Question, bool> predicate)
+        {
+            return _databaseContext.Questions.Where(predicate);
+        }
+
+        public int Add(Question entity)
+        {
+            entity.CreateDate = DateTime.UtcNow;
+            entity.LastModificationDate = entity.CreateDate;
+            entity.Author = _databaseContext.Users.First(); // until account are implemented
+
+            _databaseContext.Questions.Add(entity);
+            _databaseContext.SaveChanges();
+
+            return entity.Id;
+        }
+
+        public void Delete(Question entity)
+        {
+            _databaseContext.Questions.Remove(entity);
+            _databaseContext.SaveChanges();
+        }
+
+        public void Update(Question entity)
+        {
+            var existingEntity = GetById(entity.Id);
+
+            existingEntity.Content = entity.Content;
+            existingEntity.LastModificationDate = entity.LastModificationDate;
+            existingEntity.RankPoint = entity.RankPoint;
+            existingEntity.Title = entity.Title;
+
+            _databaseContext.SaveChanges();
+        }
+    }
+}
