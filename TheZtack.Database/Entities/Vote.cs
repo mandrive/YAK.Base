@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TheZtack.Database.Entities
 {
-    public class RankingPoint
+    public class Vote
     {
         [Key]
         public int Id { get; set; }

@@ -39,12 +39,12 @@ namespace TheZtack.Database.Migrations
                     CreateDate = DateTime.Now,
                     Author = firstUser,
                     RankPoint = 1,
-                    RankingPoints = new List<RankingPoint>()
+                    Votes = new List<Vote>()
                 };
 
             context.Questions.AddOrUpdate(question);
 
-            var rankingPoint = new RankingPoint
+            var vote = new Vote
                 {
                     Id = 1,
                     PointValue = true,
@@ -52,7 +52,7 @@ namespace TheZtack.Database.Migrations
                     Questions = new List<Question>()
                 };
 
-            question.RankingPoints.Add(rankingPoint);
+            question.Votes.Add(vote);
 
             context.SaveChanges();
         }

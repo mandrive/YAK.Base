@@ -59,7 +59,7 @@ namespace TheZtack.Database.Migrations
                 .Index(t => t.AnswerId);
             
             CreateTable(
-                "dbo.RankingPoint",
+                "dbo.Vote",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -96,19 +96,6 @@ namespace TheZtack.Database.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.QuestionRankingPoint",
-                c => new
-                    {
-                        QuestionId = c.Int(nullable: false),
-                        RankingPointId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.QuestionId, t.RankingPointId })
-                .ForeignKey("dbo.Question", t => t.QuestionId)
-                .ForeignKey("dbo.RankingPoint", t => t.RankingPointId)
-                .Index(t => t.QuestionId)
-                .Index(t => t.RankingPointId);
-            
-            CreateTable(
                 "dbo.QuestionTag",
                 c => new
                     {
@@ -122,72 +109,85 @@ namespace TheZtack.Database.Migrations
                 .Index(t => t.TagId);
             
             CreateTable(
-                "dbo.CommentRankingPoint",
+                "dbo.QuestionVote",
+                c => new
+                    {
+                        QuestionId = c.Int(nullable: false),
+                        VoteId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.QuestionId, t.VoteId })
+                .ForeignKey("dbo.Question", t => t.QuestionId)
+                .ForeignKey("dbo.Vote", t => t.VoteId)
+                .Index(t => t.QuestionId)
+                .Index(t => t.VoteId);
+            
+            CreateTable(
+                "dbo.CommentVote",
                 c => new
                     {
                         CommentId = c.Int(nullable: false),
-                        RankingPointId = c.Int(nullable: false),
+                        VoteId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.CommentId, t.RankingPointId })
+                .PrimaryKey(t => new { t.CommentId, t.VoteId })
                 .ForeignKey("dbo.Comment", t => t.CommentId)
-                .ForeignKey("dbo.RankingPoint", t => t.RankingPointId)
+                .ForeignKey("dbo.Vote", t => t.VoteId)
                 .Index(t => t.CommentId)
-                .Index(t => t.RankingPointId);
+                .Index(t => t.VoteId);
             
             CreateTable(
-                "dbo.AnswerRankingPoint",
+                "dbo.AnswerVote",
                 c => new
                     {
                         AnswerId = c.Int(nullable: false),
-                        RankingPointId = c.Int(nullable: false),
+                        VoteId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.AnswerId, t.RankingPointId })
+                .PrimaryKey(t => new { t.AnswerId, t.VoteId })
                 .ForeignKey("dbo.Answer", t => t.AnswerId)
-                .ForeignKey("dbo.RankingPoint", t => t.RankingPointId)
+                .ForeignKey("dbo.Vote", t => t.VoteId)
                 .Index(t => t.AnswerId)
-                .Index(t => t.RankingPointId);
+                .Index(t => t.VoteId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.AnswerRankingPoint", "RankingPointId", "dbo.RankingPoint");
-            DropForeignKey("dbo.AnswerRankingPoint", "AnswerId", "dbo.Answer");
+            DropForeignKey("dbo.AnswerVote", "VoteId", "dbo.Vote");
+            DropForeignKey("dbo.AnswerVote", "AnswerId", "dbo.Answer");
             DropForeignKey("dbo.Comment", "AnswerId", "dbo.Answer");
-            DropForeignKey("dbo.RankingPoint", "UserId", "dbo.User");
+            DropForeignKey("dbo.Vote", "UserId", "dbo.User");
             DropForeignKey("dbo.Question", "UserId", "dbo.User");
             DropForeignKey("dbo.Comment", "UserId", "dbo.User");
-            DropForeignKey("dbo.CommentRankingPoint", "RankingPointId", "dbo.RankingPoint");
-            DropForeignKey("dbo.CommentRankingPoint", "CommentId", "dbo.Comment");
+            DropForeignKey("dbo.CommentVote", "VoteId", "dbo.Vote");
+            DropForeignKey("dbo.CommentVote", "CommentId", "dbo.Comment");
+            DropForeignKey("dbo.QuestionVote", "VoteId", "dbo.Vote");
+            DropForeignKey("dbo.QuestionVote", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.QuestionTag", "TagId", "dbo.Tag");
             DropForeignKey("dbo.QuestionTag", "QuestionId", "dbo.Question");
-            DropForeignKey("dbo.QuestionRankingPoint", "RankingPointId", "dbo.RankingPoint");
-            DropForeignKey("dbo.QuestionRankingPoint", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Comment", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Answer", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.Answer", "UserId", "dbo.User");
-            DropIndex("dbo.AnswerRankingPoint", new[] { "RankingPointId" });
-            DropIndex("dbo.AnswerRankingPoint", new[] { "AnswerId" });
-            DropIndex("dbo.CommentRankingPoint", new[] { "RankingPointId" });
-            DropIndex("dbo.CommentRankingPoint", new[] { "CommentId" });
+            DropIndex("dbo.AnswerVote", new[] { "VoteId" });
+            DropIndex("dbo.AnswerVote", new[] { "AnswerId" });
+            DropIndex("dbo.CommentVote", new[] { "VoteId" });
+            DropIndex("dbo.CommentVote", new[] { "CommentId" });
+            DropIndex("dbo.QuestionVote", new[] { "VoteId" });
+            DropIndex("dbo.QuestionVote", new[] { "QuestionId" });
             DropIndex("dbo.QuestionTag", new[] { "TagId" });
             DropIndex("dbo.QuestionTag", new[] { "QuestionId" });
-            DropIndex("dbo.QuestionRankingPoint", new[] { "RankingPointId" });
-            DropIndex("dbo.QuestionRankingPoint", new[] { "QuestionId" });
             DropIndex("dbo.Question", new[] { "UserId" });
-            DropIndex("dbo.RankingPoint", new[] { "UserId" });
+            DropIndex("dbo.Vote", new[] { "UserId" });
             DropIndex("dbo.Comment", new[] { "AnswerId" });
             DropIndex("dbo.Comment", new[] { "UserId" });
             DropIndex("dbo.Comment", new[] { "QuestionId" });
             DropIndex("dbo.Answer", new[] { "QuestionId" });
             DropIndex("dbo.Answer", new[] { "UserId" });
-            DropTable("dbo.AnswerRankingPoint");
-            DropTable("dbo.CommentRankingPoint");
+            DropTable("dbo.AnswerVote");
+            DropTable("dbo.CommentVote");
+            DropTable("dbo.QuestionVote");
             DropTable("dbo.QuestionTag");
-            DropTable("dbo.QuestionRankingPoint");
             DropTable("dbo.Tag");
             DropTable("dbo.Question");
-            DropTable("dbo.RankingPoint");
+            DropTable("dbo.Vote");
             DropTable("dbo.Comment");
             DropTable("dbo.User");
             DropTable("dbo.Answer");

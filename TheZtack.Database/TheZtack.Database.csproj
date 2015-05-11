@@ -52,12 +52,12 @@
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Question.cs" />
-    <Compile Include="Entities\RankingPoint.cs" />
+    <Compile Include="Entities\Vote.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201505101308548_InitialMigration.cs" />
-    <Compile Include="Migrations\201505101308548_InitialMigration.Designer.cs">
-      <DependentUpon>201505101308548_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201505111448088_InitialMigration.cs" />
+    <Compile Include="Migrations\201505111448088_InitialMigration.Designer.cs">
+      <DependentUpon>201505111448088_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,8 +70,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505101308548_InitialMigration.resx">
-      <DependentUpon>201505101308548_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505111448088_InitialMigration.resx">
+      <DependentUpon>201505111448088_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

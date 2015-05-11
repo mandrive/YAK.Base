@@ -22,6 +22,6 @@ namespace TheZtack.Database.Entities
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<RankingPoint> RankingPoints { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }

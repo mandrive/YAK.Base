@@ -56,28 +56,28 @@ namespace TheZtack.Database
                           .MapRightKey("TagId"));
 
             modelBuilder.Entity<Question>()
-                .HasMany(q => q.RankingPoints)
+                .HasMany(q => q.Votes)
                 .WithMany(t => t.Questions)
                 .Map(
                     x => x.MapLeftKey("QuestionId")
-                          .MapRightKey("RankingPointId"));
+                          .MapRightKey("VoteId"));
 
             modelBuilder.Entity<Answer>()
-                .HasMany(q => q.RankingPoints)
+                .HasMany(q => q.Votes)
                 .WithMany(t => t.Answers)
                 .Map(
                     x => x.MapLeftKey("AnswerId")
-                          .MapRightKey("RankingPointId"));
+                          .MapRightKey("VoteId"));
 
             modelBuilder.Entity<Comment>()
-                .HasMany(q => q.RankingPoints)
+                .HasMany(q => q.Votes)
                 .WithMany(t => t.Comments)
                 .Map(
                     x => x.MapLeftKey("CommentId")
-                          .MapRightKey("RankingPointId"));
+                          .MapRightKey("VoteId"));
 
             modelBuilder.Entity<User>()
-                .HasMany(u => u.RankingPoints)
+                .HasMany(u => u.Votes)
                 .WithRequired(c => c.User)
                 .Map(x => x.MapKey("UserId"));
 
@@ -95,6 +95,6 @@ namespace TheZtack.Database
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<RankingPoint> RankingPoints { get; set; }
+        public DbSet<Vote> Votes { get; set; }
     }
 }

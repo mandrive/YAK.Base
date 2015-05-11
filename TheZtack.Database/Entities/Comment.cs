@@ -22,7 +22,7 @@ namespace TheZtack.Database.Entities
         [Required]
         public DateTime LastModificationDate { get; set; }
 
-        public virtual ICollection<RankingPoint> RankingPoints { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
         public virtual User Author { get; set; }
     }
 }

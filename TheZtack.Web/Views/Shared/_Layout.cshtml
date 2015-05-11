@@ -9,6 +9,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/typeahead")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </head>
@@ -34,7 +35,7 @@
 
     <div class="container body-content">
         <header>
-            <input type="text" class="input-lg search input-block-level" placeholder="Search..." style="box-sizing: border-box;">
+            <input type="text" class="input-lg search input-block-level typeahead" placeholder="Search..." style="box-sizing: border-box;">
         </header>
         <div>
             @RenderBody()
@@ -43,5 +44,17 @@
             <p>TheZtack&copy; @DateTime.Now.Year</p>
         </footer>
     </div>
+    <script type="text/javascript">
+        $(".search").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'questions',
+            source: function (q, p) { return p([{ 'value': 'first' }, { 'value': 'second' }, { 'value': 'third' }]); },
+            remote: 
+        });
+    </script>
 </body>
 </html>
