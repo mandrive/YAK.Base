@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using YAK.Base.Data.Interfaces;
 using YAK.Base.Database;
 using YAK.Base.Database.Entities;
 

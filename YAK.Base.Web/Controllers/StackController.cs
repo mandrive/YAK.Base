@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using YAK.Base.Data.Interfaces;
 using YAK.Base.Database;
 using YAK.Base.Database.Entities;
 
@@ -18,7 +17,7 @@ namespace YAK.Base.Web.Controllers
 
         public ActionResult Index()
         {
-            var questions = _databaseContext.Questions;
+            var questions = _databaseContext.Questions.Include("Author");
 
             return View(questions);
         }
