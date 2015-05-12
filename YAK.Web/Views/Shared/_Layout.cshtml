@@ -1,0 +1,62 @@
+﻿@using System
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yak.Base - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/typeahead")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Yak.Base", "Index", "Stack", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Stack")</li>
+                    <li>@Html.ActionLink("New", "New", "Question")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <header>
+            <input type="text" class="input-lg search input-block-level typeahead" placeholder="Search..." style="box-sizing: border-box;">
+        </header>
+        <div>
+            @RenderBody()
+        </div>
+        <footer>
+            <p>Yak&copy; @DateTime.Now.Year</p>
+        </footer>
+    </div>
+    <script type="text/javascript">
+        $(".search").typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'questions',
+            source: function (query, process) {
+                return $.getJSON('/Question/FilterQuestions', { query: query }, function (data) {
+                    return process(JSON.parse(data));
+                }); }
+        });
+    </script>
+</body>
+</html>

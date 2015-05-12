@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAK.Base.Web", "YAK.Base.Web\YAK.Base.Web.csproj", "{96D64A04-715A-477C-AC61-BA4180C22717}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.Web", "Yak.Web\Yak.Web.csproj", "{96D64A04-715A-477C-AC61-BA4180C22717}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAK.Base.Database", "YAK.Base.Database\YAK.Base.Database.csproj", "{9B1A2F83-5909-4303-8480-1C091294ADA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.Database", "Yak.Database\Yak.Database.csproj", "{9B1A2F83-5909-4303-8480-1C091294ADA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YAK.Base.SearchEngine", "YAK.Base.SearchEngine\YAK.Base.SearchEngine.csproj", "{48DC9CC8-B916-4CA1-8A2D-816CC98A2A38}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.SearchEngine", "Yak.SearchEngine\Yak.SearchEngine.csproj", "{48DC9CC8-B916-4CA1-8A2D-816CC98A2A38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
