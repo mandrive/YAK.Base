@@ -6,6 +6,9 @@ using LightInject;
 using Yak.Database;
 using Yak.SearchEngine;
 using Yak.Web;
+using Yak.Services.Interfaces;
+using Yak.DTO;
+using Yak.Services;
 
 namespace Yak
 {
@@ -25,16 +28,7 @@ namespace Yak
         {
             var container = new ServiceContainer();
             container.RegisterControllers(typeof(MvcApplication).Assembly);
-
-            RegisterTypes(container);
-
             container.EnableMvc();
-        }
-
-        private void RegisterTypes(ServiceContainer container)
-        {
-            container.Register<SearchEngineCore>(new PerContainerLifetime());
-            container.Register<DatabaseContext>(new PerRequestLifeTime());
         }
     }
 }

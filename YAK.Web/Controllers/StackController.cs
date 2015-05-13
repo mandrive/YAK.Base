@@ -1,23 +1,23 @@
 ﻿using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using Yak.Database;
-using Yak.Database.Entities;
+using Yak.Services.Interfaces;
+using Yak.DTO;
 
 namespace Yak.Web.Controllers
 {
     public class StackController : Controller
     {
-        private DatabaseContext _databaseContext;
+        private IService<Question> _questionService;
 
-        public StackController(DatabaseContext context)
+        public StackController(IService<Question> questionService)
         {
-            _databaseContext = context;
+            _questionService = questionService;
         }
 
         public ActionResult Index()
         {
-            var questions = _databaseContext.Questions.Include("Author");
+            var questions = _questionService.GetAll();
 
             return View(questions);
         }

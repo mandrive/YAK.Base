@@ -206,9 +206,17 @@
       <Project>{9b1a2f83-5909-4303-8480-1c091294ada8}</Project>
       <Name>Yak.Database</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Yak.DTO\Yak.DTO.csproj">
+      <Project>{1940ab2e-ae31-4ffb-a6e0-8284936f828b}</Project>
+      <Name>Yak.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Yak.SearchEngine\Yak.SearchEngine.csproj">
       <Project>{48dc9cc8-b916-4ca1-8a2d-816cc98a2a38}</Project>
       <Name>Yak.SearchEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yak.Services\Yak.Services.csproj">
+      <Project>{4a320c6b-2cd6-4add-99f1-ab99b03f2620}</Project>
+      <Name>Yak.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

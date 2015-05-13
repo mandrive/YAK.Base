@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.Database", "Yak.Databas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.SearchEngine", "Yak.SearchEngine\Yak.SearchEngine.csproj", "{48DC9CC8-B916-4CA1-8A2D-816CC98A2A38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.Services", "Yak.Services\Yak.Services.csproj", "{4A320C6B-2CD6-4ADD-99F1-AB99B03F2620}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.DTO", "Yak.DTO\Yak.DTO.csproj", "{1940AB2E-AE31-4FFB-A6E0-8284936F828B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{48DC9CC8-B916-4CA1-8A2D-816CC98A2A38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48DC9CC8-B916-4CA1-8A2D-816CC98A2A38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48DC9CC8-B916-4CA1-8A2D-816CC98A2A38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A320C6B-2CD6-4ADD-99F1-AB99B03F2620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A320C6B-2CD6-4ADD-99F1-AB99B03F2620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A320C6B-2CD6-4ADD-99F1-AB99B03F2620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A320C6B-2CD6-4ADD-99F1-AB99B03F2620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1940AB2E-AE31-4FFB-A6E0-8284936F828B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1940AB2E-AE31-4FFB-A6E0-8284936F828B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1940AB2E-AE31-4FFB-A6E0-8284936F828B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1940AB2E-AE31-4FFB-A6E0-8284936F828B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

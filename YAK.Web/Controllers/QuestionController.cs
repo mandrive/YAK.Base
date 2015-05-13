@@ -4,37 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Yak.Database;
-using Yak.Database.Entities;
+using Yak.DTO;
+using Yak.Services;
+using Yak.Services.Interfaces;
 
 namespace Yak.Web.Controllers
 {
     public class QuestionController : Controller
     {
-        private DatabaseContext _databaseContext;
+        private IService<Question> _questionService;
+        private IService<User> _userService;
 
-        public QuestionController(DatabaseContext databaseContext)
+        public QuestionController(IService<Question> questionService, IService<User> userService)
         {
-            _databaseContext = databaseContext;
+            _questionService = questionService;
+            _userService = userService;
         }
 
         public ActionResult View(int id)
         {
-            return View(_databaseContext.Questions.Find(id));
+            return View(_questionService.GetById(id));
         }
 
         public ActionResult FilterQuestions(string query)
         {
-            var filteredQuestions = _databaseContext.Questions.Where(q => q.Title.Contains(query)).ToList().ToArray();
-
-            return Json(JsonConvert.SerializeObject(filteredQuestions.Select(n => new
-            {
-                value = n.Title
-            }), Formatting.Indented,
+            var filteredQuestions = _questionService.Filter(q => q.Title.Contains(query));
+            return Json(
+                JsonConvert.SerializeObject(filteredQuestions.Select(n => new
+                {
+                    value = n.Title
+                }),
+                Formatting.Indented,
                 new JsonSerializerSettings
                 {
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                }), JsonRequestBehavior.AllowGet);
+                }),
+                JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -46,11 +51,10 @@ namespace Yak.Web.Controllers
         [HttpPost]
         public ActionResult New(Question question)
         {
-            question.Author = _databaseContext.Users.Find(1);
+            question.Author = _userService.GetById(1);
             question.CreateDate = DateTime.Now;
             question.LastModificationDate = DateTime.Now;
-            _databaseContext.Questions.Add(question);
-            _databaseContext.SaveChanges();
+            _questionService.Add(question);
 
             return Redirect(string.Format(@"View\{0}", question.Id));
         }
