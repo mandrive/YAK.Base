@@ -8,9 +8,9 @@ namespace Yak.Web.Controllers
 {
     public class StackController : Controller
     {
-        private IService<Question> _questionService;
+        private ISearchEngineExtendedService<Question> _questionService;
 
-        public StackController(IService<Question> questionService)
+        public StackController(ISearchEngineExtendedService<Question> questionService)
         {
             _questionService = questionService;
         }
@@ -20,6 +20,13 @@ namespace Yak.Web.Controllers
             var questions = _questionService.GetAll();
 
             return View(questions);
+        }
+
+        public ActionResult Filtered()
+        {
+            var questions = _questionService.GetFromIndex("ww");
+
+            return View("Index", questions);
         }
     }
 }

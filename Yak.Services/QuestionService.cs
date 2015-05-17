@@ -8,16 +8,20 @@ using Yak.Services.Interfaces;
 using System.Data.Entity;
 using Yak.DTO;
 using System.Linq.Expressions;
+using Yak.SearchEngine;
+using Yak.SearchEngine.Interfaces;
 
 namespace Yak.Services
 {
-    public class QuestionService : IService<Question>
+    public class QuestionService : ISearchEngineExtendedService<Question>
     {
         private DatabaseContext _databaseContext;
+        private ISearchEngineService<Question> _questionSearchEngineService;
 
-        public QuestionService(DatabaseContext databaseContext)
+        public QuestionService(DatabaseContext databaseContext, ISearchEngineService<Question> questionSearchEngineService)
         {
             _databaseContext = databaseContext;
+            _questionSearchEngineService = questionSearchEngineService;
         }
 
         public Question GetById(int id)
@@ -29,9 +33,9 @@ namespace Yak.Services
         {
             var questions = new List<Question>();
 
-            foreach (var question in _databaseContext.Questions.ToList())
+            foreach (var question in _questionSearchEngineService.GetAll())
             {
-                questions.Add(new Question(question));
+                questions.Add(question);
             }
 
             return questions;
@@ -39,7 +43,7 @@ namespace Yak.Services
 
         public IEnumerable<Question> Filter(Func<Question, bool> filter)
         {
-            return GetAll().Where(filter);
+            return _questionSearchEngineService.GetAll().Where(filter);
         }
 
         public void Add(Question entity)
@@ -55,6 +59,10 @@ namespace Yak.Services
 
             _databaseContext.Questions.Add(dbEntity);
             _databaseContext.SaveChanges();
+
+            entity.Id = dbEntity.Id;
+
+            _questionSearchEngineService.AddToIndex(entity);
         }
 
         public void Delete(Question entity)
@@ -68,6 +76,11 @@ namespace Yak.Services
         public void Update(Question entity)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Question> GetFromIndex(params string[] searchValues)
+        {
+            return _questionSearchEngineService.GetFiltered(searchValues);
         }
     }
 }

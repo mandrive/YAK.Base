@@ -1,0 +1,42 @@
+PUT http://localhost:9200/yakbase/
+
+{
+	"settings": {
+		"index": {
+			"index": "yakbase",
+			"type": "Question",
+			"analysis": {
+				"analyzer": {
+					"yakanalyzer": {
+						"type": "custom",
+						"tokenizer": "standard",
+						"filter": ["lowercase", "yakfilter"]
+					}
+				},
+				"filter" : {
+					"yakfilter" : {
+					"type" : "ngram",
+					"min_gram" : 1,
+					"max_gram"  : 20
+					}
+				}
+			}
+		}
+	},
+	"mappings" : {
+		"question" : {
+			"properties" : {
+					"title" : {
+						"type" : "string",
+						"index" : "not_analyzed",
+						"analyzer" : "yakanalyzer"
+					},
+					"content" : {
+						"type" : "string",
+						"index" : "not_analyzed",
+						"analyzer" : "yakanalyzer"
+					}
+			}
+		}
+	}
+}

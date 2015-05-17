@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yak.DTO;
+using Yak.SearchEngine.Interfaces;
 
 namespace Yak.SearchEngine
 {
@@ -11,7 +13,7 @@ namespace Yak.SearchEngine
     {
         public void Compose(IServiceRegistry serviceRegistry)
         {
-            serviceRegistry.Register<SearchEngineCore>(new PerContainerLifetime());
+            serviceRegistry.Register<ISearchEngineService<Question>, QuestionSearchEngineService>(new PerContainerLifetime());
         }
     }
 }

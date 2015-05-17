@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,11 @@ namespace Yak.DTO
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        [ElasticProperty(OptOut = true)]
         public DateTime CreateDate { get; set; }
+        [ElasticProperty(OptOut = true)]
         public DateTime LastModificationDate { get; set; }
+        [ElasticProperty(OptOut = true)]
         public User Author { get; set; }
 
         public Question()
@@ -27,7 +31,10 @@ namespace Yak.DTO
             Content = question.Content;
             CreateDate = question.CreateDate;
             LastModificationDate = question.LastModificationDate;
-            Author = new User(question.Author);
+            if (question.Author != null)
+            {
+                Author = new User(question.Author);
+            }
         }
     }
 }

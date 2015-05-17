@@ -7,18 +7,21 @@ using System.Web.Mvc;
 using Yak.DTO;
 using Yak.Services;
 using Yak.Services.Interfaces;
+using Yak.Services.Utils;
 
 namespace Yak.Web.Controllers
 {
     public class QuestionController : Controller
     {
-        private IService<Question> _questionService;
+        private ISearchEngineExtendedService<Question> _questionService;
         private IService<User> _userService;
+        private IndexRebuilder _indexRebuilder;
 
-        public QuestionController(IService<Question> questionService, IService<User> userService)
+        public QuestionController(ISearchEngineExtendedService<Question> questionService, IService<User> userService, IndexRebuilder indexRebuilder)
         {
             _questionService = questionService;
             _userService = userService;
+            _indexRebuilder = indexRebuilder;
         }
 
         public ActionResult View(int id)
@@ -56,7 +59,14 @@ namespace Yak.Web.Controllers
             question.LastModificationDate = DateTime.Now;
             _questionService.Add(question);
 
-            return Redirect(string.Format(@"View\{0}", question.Id));
+            return RedirectToAction("View", new { id = question.Id });
+        }
+
+        public ActionResult RebuildIndexes()
+        {
+            _indexRebuilder.RebuildQuestionsIndex();
+
+            return RedirectToAction("Index", "Stack");
         }
     }
 }
