@@ -33,17 +33,20 @@
         </div>
     </div>
 
-    <div class="container body-content">
+<div class="container body-content">
+    @if (@Html.Controller() == "Stack" && @Html.Action() == "Index")
+    {
         <header>
             <input type="text" class="input-lg search input-block-level typeahead" placeholder="Search..." style="box-sizing: border-box;">
         </header>
-        <div>
-            @RenderBody()
-        </div>
-        <footer>
-            <p>Yak&copy; @DateTime.Now.Year</p>
-        </footer>
+    }
+    <div>
+        @RenderBody()
     </div>
+    <footer>
+        <p>Yak&copy; @DateTime.Now.Year</p>
+    </footer>
+</div>
     <script type="text/javascript">
         $(".search").typeahead({
             hint: true,
@@ -55,7 +58,16 @@
             source: function (query, process) {
                 return $.getJSON('/Question/FilterQuestions', { query: query }, function (data) {
                     return process(JSON.parse(data));
-                }); }
+                });
+            },
+            templates: {
+                empty: [
+                  '<div class="empty-message">',
+                    'unable to find any question that match the current query',
+                  '</div>'
+                ].join('\n'),
+                suggestion: Handlebars.compile('<div><div><h4>{{value}}</h4><p>{{content}}<p></div><hr class="autocompleteSeparator"/></div>')
+            }
         });
     </script>
 </body>

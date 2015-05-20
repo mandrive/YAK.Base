@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Yak.Database;
-using Yak.Services.Interfaces;
-using System.Data.Entity;
 using Yak.DTO;
-using System.Linq.Expressions;
-using Yak.SearchEngine;
 using Yak.SearchEngine.Interfaces;
+using Yak.Services.Interfaces;
 
 namespace Yak.Services
 {

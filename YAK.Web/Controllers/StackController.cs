@@ -21,12 +21,5 @@ namespace Yak.Web.Controllers
 
             return View(questions);
         }
-
-        public ActionResult Filtered()
-        {
-            var questions = _questionService.GetFromIndex("ww");
-
-            return View("Index", questions);
-        }
     }
 }

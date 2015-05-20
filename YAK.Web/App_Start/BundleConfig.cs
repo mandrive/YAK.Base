@@ -11,7 +11,8 @@ namespace Yak.Web
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/typeahead").Include(
-                        "~/Scripts/typeahead.bundle.min.js"));
+                        "~/Scripts/typeahead.bundle.min.js",
+                        "~/Scripts/handlebars-v3.0.3.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

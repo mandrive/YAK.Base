@@ -31,11 +31,12 @@ namespace Yak.Web.Controllers
 
         public ActionResult FilterQuestions(string query)
         {
-            var filteredQuestions = _questionService.Filter(q => q.Title.Contains(query));
+            var filteredQuestions = _questionService.GetFromIndex(query);
             return Json(
                 JsonConvert.SerializeObject(filteredQuestions.Select(n => new
                 {
-                    value = n.Title
+                    value = n.Title,
+                    content = n.Content
                 }),
                 Formatting.Indented,
                 new JsonSerializerSettings
