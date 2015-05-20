@@ -10,7 +10,7 @@ namespace Yak.Services
 {
     public class QuestionService : ISearchEngineExtendedService<Question>
     {
-        private DatabaseContext _databaseContext;
+        private readonly DatabaseContext _databaseContext;
         private ISearchEngineService<Question> _questionSearchEngineService;
 
         public QuestionService(DatabaseContext databaseContext, ISearchEngineService<Question> questionSearchEngineService)
@@ -41,15 +41,15 @@ namespace Yak.Services
             return _questionSearchEngineService.GetAll().Where(filter);
         }
 
-        public void Add(Question entity)
+        public void Add(Question dto)
         {
             var dbEntity = new Database.Entities.Question()
             {
-                Title = entity.Title,
-                Content = entity.Content,
-                CreateDate = entity.CreateDate,
-                LastModificationDate = entity.LastModificationDate,
-                Author = _databaseContext.Users.Find(entity.Author.Id)
+                Title = dto.Title,
+                Content = dto.Content,
+                CreateDate = dto.CreateDate,
+                LastModificationDate = dto.LastModificationDate,
+                Author = _databaseContext.Users.Single(u => u.Username == dto.Author)
             };
 
             _databaseContext.Questions.Add(dbEntity);
@@ -60,9 +60,9 @@ namespace Yak.Services
             _questionSearchEngineService.AddToIndex(entity);
         }
 
-        public void Delete(Question entity)
+        public void Delete(Question dto)
         {
-            var dbEntity = _databaseContext.Questions.Find(entity.Id);
+            var dbEntity = _databaseContext.Questions.Find(dto.Id);
 
             _databaseContext.Questions.Remove(dbEntity);
             _databaseContext.SaveChanges();

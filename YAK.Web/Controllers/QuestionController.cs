@@ -8,12 +8,14 @@ using Yak.DTO;
 using Yak.Services;
 using Yak.Services.Interfaces;
 using Yak.Services.Utils;
+using QuestionForm = Yak.Web.Models.QuestionForm;
 
 namespace Yak.Web.Controllers
 {
     public class QuestionController : Controller
     {
-        private ISearchEngineExtendedService<Question> _questionService;
+        private readonly IService<Question> _questionService;
+        private readonly IService<User> _userService;
         private IService<User> _userService;
         private IndexRebuilder _indexRebuilder;
 
@@ -53,12 +55,9 @@ namespace Yak.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult New(Question question)
+        public ActionResult New(QuestionForm questionForm)
         {
-            question.Author = _userService.GetById(1);
-            question.CreateDate = DateTime.Now;
-            question.LastModificationDate = DateTime.Now;
-            _questionService.Add(question);
+            _questionService.Add(questionForm.ToDto());
 
             return RedirectToAction("View", new { id = question.Id });
         }

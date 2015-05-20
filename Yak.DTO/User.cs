@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entities = Yak.Database.Entities;
-
-namespace Yak.DTO
+﻿namespace Yak.DTO
 {
     public class User
     {
@@ -15,7 +8,7 @@ namespace Yak.DTO
 
         public User() { }
 
-        public User(Entities.User user)
+        public User(Database.Entities.User user)
         {
             Id = user.Id;
             Username = user.Username;

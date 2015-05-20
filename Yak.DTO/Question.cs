@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Entities = Yak.Database.Entities;
 
 namespace Yak.DTO
 {
@@ -18,22 +15,23 @@ namespace Yak.DTO
         [ElasticProperty(OptOut = true)]
         public DateTime LastModificationDate { get; set; }
         [ElasticProperty(OptOut = true)]
-        public User Author { get; set; }
+        public string Author { get; set; }
+
+        public List<Tag> Tags { get; set; }
 
         public Question()
         {
         }
 
-        public Question(Entities.Question question)
+        public Question(Database.Entities.Question question)
         {
             Id = question.Id;
             Title = question.Title;
             Content = question.Content;
             CreateDate = question.CreateDate;
             LastModificationDate = question.LastModificationDate;
-            if (question.Author != null)
-            {
-                Author = new User(question.Author);
+            Author = question.Author.Username;
+            Tags = question.Tags.Select(t => new Tag(t)).ToList();
             }
         }
     }
