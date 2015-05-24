@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Nest;
 using Yak.DTO;
-using System.Linq.Expressions;
 using Yak.SearchEngine.Interfaces;
 
 namespace Yak.SearchEngine
 {
     public class QuestionSearchEngineService : ISearchEngineService<Question>
     {
-        private ElasticClient _elasticClient;
+        private readonly ElasticClient _elasticClient;
 
         public QuestionSearchEngineService()
         {
@@ -34,7 +33,7 @@ namespace Yak.SearchEngine
         {
             var result = _elasticClient.Search<Question>(s => s.Query(q => q.Term(p => p.Id, id)));
 
-            if (result.Hits.Count() > 0)
+            if (result.Hits.Any())
             {
                 return result.Hits.FirstOrDefault().Source;
             }

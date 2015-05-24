@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Yak.Database;
 using Yak.DTO;
+<<<<<<< HEAD
 using Yak.SearchEngine.Interfaces;
+=======
+>>>>>>> implemented editor for markdown notation
 using Yak.Services.Interfaces;
 
 namespace Yak.Services
 {
     public class QuestionService : ISearchEngineExtendedService<Question>
     {
+<<<<<<< HEAD
+        private DatabaseContext _databaseContext;
+        private ISearchEngineService<Question> _questionSearchEngineService;
+=======
         private readonly DatabaseContext _databaseContext;
-        private readonly ISearchEngineService<Question> _questionSearchEngineService;
+>>>>>>> implemented editor for markdown notation
 
         public QuestionService(DatabaseContext databaseContext, ISearchEngineService<Question> questionSearchEngineService)
         {
@@ -26,7 +33,14 @@ namespace Yak.Services
 
         public IEnumerable<Question> GetAll()
         {
-            return _questionSearchEngineService.GetAll().ToList();
+            var questions = new List<Question>();
+
+            foreach (var question in _questionSearchEngineService.GetAll())
+            {
+                questions.Add(question);
+            }
+
+            return questions;
         }
 
         public IEnumerable<Question> Filter(Func<Question, bool> filter)
@@ -48,9 +62,9 @@ namespace Yak.Services
             _databaseContext.Questions.Add(dbEntity);
             _databaseContext.SaveChanges();
 
-            dto.Id = dbEntity.Id;
+            entity.Id = dbEntity.Id;
 
-            _questionSearchEngineService.AddToIndex(dto);
+            _questionSearchEngineService.AddToIndex(entity);
         }
 
         public void Delete(Question dto)

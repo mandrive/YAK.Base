@@ -14,10 +14,14 @@ namespace Yak.DTO
         public DateTime CreateDate { get; set; }
         [ElasticProperty(OptOut = true)]
         public DateTime LastModificationDate { get; set; }
+<<<<<<< HEAD
         [ElasticProperty(OptOut = true)]
+        public User Author { get; set; }
+=======
         public string Author { get; set; }
 
         public List<Tag> Tags { get; set; }
+>>>>>>> implemented editor for markdown notation
 
         public Question()
         {
@@ -30,8 +34,15 @@ namespace Yak.DTO
             Content = question.Content;
             CreateDate = question.CreateDate;
             LastModificationDate = question.LastModificationDate;
+<<<<<<< HEAD
+            if (question.Author != null)
+            {
+                Author = new User(question.Author);
+            }
+=======
             Author = question.Author.Username;
             Tags = question.Tags.Select(t => new Tag(t)).ToList();
+>>>>>>> implemented editor for markdown notation
         }
     }
 }
