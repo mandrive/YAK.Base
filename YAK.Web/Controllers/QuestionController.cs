@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Newtonsoft.Json;
 using Yak.DTO;
 using Yak.Services.Interfaces;
@@ -9,7 +10,7 @@ namespace Yak.Web.Controllers
 {
     public class QuestionController : Controller
     {
-        private readonly IService<Question> _questionService;
+        private readonly ISearchEngineExtendedService<Question> _questionService;
         private readonly IService<User> _userService;
         private readonly IndexRebuilder _indexRebuilder;
 
@@ -51,9 +52,10 @@ namespace Yak.Web.Controllers
         [HttpPost]
         public ActionResult New(QuestionForm questionForm)
         {
-            _questionService.Add(questionForm.ToDto());
+            var dto = questionForm.ToDto();
+            _questionService.Add(dto);
 
-            return RedirectToAction("View", new { id = questionForm.Id });
+            return RedirectToAction("View", new { id = dto.Id });
         }
 
         public ActionResult RebuildIndexes()
