@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Elasticsearch.Net;
 using Nest;
 using Yak.DTO;
 using Yak.SearchEngine.Interfaces;
@@ -13,7 +14,7 @@ namespace Yak.SearchEngine
 
         public QuestionSearchEngineService()
         {
-            var setting = new ConnectionSettings(new Uri("http://localhost:9200"), defaultIndex: "yakbase");
+            var setting = new ConnectionSettings(new Uri("http://localhost:9200"), "yakbase");
             _elasticClient = new ElasticClient(setting);
         }
 
@@ -24,21 +25,20 @@ namespace Yak.SearchEngine
 
         public IEnumerable<Question> GetAll()
         {
-            var allHits = _elasticClient.Search<Question>(q => q.AllIndices()).Hits.Select(h => h.Source);
+            var allHits = _elasticClient.Search<Question>(q => q.SearchType(SearchType.Scan).Scroll("1m"));
+            var realHits = _elasticClient.Scroll<Question>("1m", allHits.ScrollId).Hits.Select(h => h.Source);
 
-            return allHits;
+            return realHits;
         }
 
         public Question GetById(int id)
         {
             var result = _elasticClient.Search<Question>(s => s.Query(q => q.Term(p => p.Id, id)));
 
-            if (result.Hits.Any())
-            {
-                return result.Hits.FirstOrDefault().Source;
-            }
+            if (!result.Hits.Any()) return null;
+            var firstOrDefault = result.Hits.FirstOrDefault();
 
-            return null;
+            return firstOrDefault != null ? firstOrDefault.Source : null;
         }
 
         public IEnumerable<Question> GetFiltered(params string[] searchValues)
@@ -54,8 +54,7 @@ namespace Yak.SearchEngine
             }
 
             var searchValue = searchValues[0];
-
-            var hits = _elasticClient.Search<Question>(s => s.Query(q => q.Match(m => m.OnField(i => i.Title).Query(searchValue).Analyzer("standard")) || q.Match(m => m.OnField(i => i.Content).Query(searchValue).Analyzer("standard")))).Hits;
+            var hits = _elasticClient.Search<Question>(s => s.Analyzer("standard").Query(q => q.MultiMatch(mm => mm.OnFields(i => i.Content, i => i.Title).Query(searchValue).Type(TextQueryType.CrossFields).Operator(Operator.And)))).Hits;
             var result = hits.Select(h => h.Source);
 
             return result;

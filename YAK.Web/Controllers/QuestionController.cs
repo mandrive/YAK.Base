@@ -29,18 +29,19 @@ namespace Yak.Web.Controllers
         public ActionResult FilterQuestions(string query)
         {
             var filteredQuestions = _questionService.GetFromIndex(query);
-            return Json(
-                JsonConvert.SerializeObject(filteredQuestions.Select(n => new
-                    {
-                        value = n.Title,
-                        content = n.Content
-                    }),
+            var jsonResponse = JsonConvert.SerializeObject(filteredQuestions.Select(n => new
+            {
+                id = n.Id,
+                value = n.Title,
+                content = n.Content
+            }),
                 Formatting.Indented,
                 new JsonSerializerSettings
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    }),
-                JsonRequestBehavior.AllowGet);
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
+            return Json(jsonResponse, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

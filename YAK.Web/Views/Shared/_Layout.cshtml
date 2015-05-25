@@ -1,6 +1,4 @@
-﻿@using System
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,6 +26,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Stack")</li>
                     <li>@Html.ActionLink("New", "New", "Question")</li>
+                    <li>@Html.ActionLink("Rebuild index", "RebuildIndexes", "Question")</li>
                 </ul>
             </div>
         </div>
@@ -47,28 +46,27 @@
         <p>Yak&copy; @DateTime.Now.Year</p>
     </footer>
 </div>
-    <script type="text/javascript">
-        $(".search").typeahead({
-            hint: true,
-            highlight: true,
-            minLength: 1
-        },
+<script type="text/javascript">
+    $(".search").typeahead(
+        null,
         {
             name: 'questions',
             source: function (query, process) {
-                return $.getJSON('/Question/FilterQuestions', { query: query }, function (data) {
+                return $.getJSON('/Question/FilterQuestions', { query: query }, function(data) {
                     return process(JSON.parse(data));
                 });
             },
             templates: {
                 empty: [
-                  '<div class="empty-message">',
+                    '<div class="empty-message">',
                     'unable to find any question that match the current query',
-                  '</div>'
+                    '</div>'
                 ].join('\n'),
                 suggestion: Handlebars.compile('<div><div><h4>{{value}}</h4><p>{{content}}<p></div><hr class="autocompleteSeparator"/></div>')
-            }
+        }
+        }).bind('typeahead:selected', function (obj, datum) {
+            window.location.href = '@Url.Action("View", "Question")/' + datum.id;
         });
-    </script>
+</script>
 </body>
 </html>
