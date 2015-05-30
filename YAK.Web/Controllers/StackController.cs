@@ -1,14 +1,12 @@
 ﻿using System.Web.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using Yak.Services.Interfaces;
 using Yak.DTO;
+using Yak.Services.Interfaces;
 
 namespace Yak.Web.Controllers
 {
     public class StackController : Controller
     {
-        private ISearchEngineExtendedService<Question> _questionService;
+        private readonly ISearchEngineExtendedService<Question> _questionService;
 
         public StackController(ISearchEngineExtendedService<Question> questionService)
         {
