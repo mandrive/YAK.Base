@@ -66,9 +66,9 @@ namespace Yak.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Question> GetFromIndex(params string[] searchValues)
+        public IEnumerable<Question> GetFromIndex(string query)
         {
-            return _questionSearchEngineService.GetFiltered(searchValues);
+            return _questionSearchEngineService.GetFiltered(query);
         }
     }
 }

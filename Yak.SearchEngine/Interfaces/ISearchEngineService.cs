@@ -7,6 +7,6 @@ namespace Yak.SearchEngine.Interfaces
         void AddToIndex(T indexObject);
         IEnumerable<T> GetAll();
         T GetById(int id);
-        IEnumerable<T> GetFiltered(params string[] searchValues);
+        IEnumerable<T> GetFiltered(string query);
     }
 }

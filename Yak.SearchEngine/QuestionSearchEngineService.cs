@@ -41,23 +41,24 @@ namespace Yak.SearchEngine
             return firstOrDefault != null ? firstOrDefault.Source : null;
         }
 
-        public IEnumerable<Question> GetFiltered(params string[] searchValues)
+        public IEnumerable<Question> GetFiltered(string query)
         {
-            if (searchValues == null)
+            if (string.IsNullOrEmpty(query))
             {
-                throw new Exception("No search values passed!");
+                throw new Exception("No query passed!");
             }
 
-            if (searchValues.Count() > 1)
-            {
-                throw new Exception("Only one search value is needed!");
-            }
+            var results = _elasticClient.Search<Question>(
+                s => s.Analyzer("standard")
+                    .Query(q => q.MultiMatch(
+                        mm => mm.OnFields(i => i.Content, i => i.Title)
+                            .Query(query)
+                            .Type(TextQueryType.CrossFields)
+                            .Operator(Operator.And))))
+                    .Hits
+                    .Select(h => h.Source);
 
-            var searchValue = searchValues[0];
-            var hits = _elasticClient.Search<Question>(s => s.Analyzer("standard").Query(q => q.MultiMatch(mm => mm.OnFields(i => i.Content, i => i.Title).Query(searchValue).Type(TextQueryType.CrossFields).Operator(Operator.And)))).Hits;
-            var result = hits.Select(h => h.Source);
-
-            return result;
+            return results;
         }
     }
 }
