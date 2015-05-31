@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using MarkdownSharp;
 using Newtonsoft.Json;
 using Yak.DTO;
 using Yak.Services.Interfaces;
@@ -23,7 +24,9 @@ namespace Yak.Web.Controllers
 
         public ActionResult View(int id)
         {
-            return View(_questionService.GetById(id));
+            var question = _questionService.GetById(id);
+            question.Content = new Markdown().Transform(question.Content);
+            return View(question);
         }
 
         public ActionResult FilterQuestions(string query)
@@ -33,7 +36,7 @@ namespace Yak.Web.Controllers
             {
                 id = n.Id,
                 value = n.Title,
-                content = n.Content
+                content = new Markdown().Transform(n.Content)
             }),
                 Formatting.Indented,
                 new JsonSerializerSettings

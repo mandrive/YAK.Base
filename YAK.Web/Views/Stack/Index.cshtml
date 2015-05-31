@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Yak.DTO.Question>
+﻿@model System.Collections.Generic.IEnumerable<Yak.DTO.Question>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -11,11 +11,11 @@
 {
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3>@question.Title</h3>
+            <h3> @Html.ActionLink(@question.Title, "View", "Question", new { id = @question.Id }, null)</h3>
         </div>
         <div class="panel-body">
             <p>@question.Author - @question.CreateDate</p>
-            <p>@question.Content</p>
+            <p>@Html.Raw(@question.Content)</p>
         </div>
     </div>
 }

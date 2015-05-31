@@ -209,6 +209,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Downloads\MarkdownSharp\MarkdownSharp.csproj">
+      <Project>{37619116-CCE8-465A-8B1F-081CA53364BB}</Project>
+      <Name>MarkdownSharp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Yak.Database\Yak.Database.csproj">
       <Project>{9b1a2f83-5909-4303-8480-1c091294ada8}</Project>
       <Name>Yak.Database</Name>
