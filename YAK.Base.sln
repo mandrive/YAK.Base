@@ -20,8 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ElasticSearch", "ElasticSea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yak.TestDataGenerator", "Yak.TestDataGenerator\Yak.TestDataGenerator.csproj", "{994B30D4-AA2D-40D4-9DCB-68FFAB388D01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownSharp", "MarkdownSharp\MarkdownSharp.csproj", "{37619116-CCE8-465A-8B1F-081CA53364BB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,10 +50,6 @@ Global
 		{994B30D4-AA2D-40D4-9DCB-68FFAB388D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{994B30D4-AA2D-40D4-9DCB-68FFAB388D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{994B30D4-AA2D-40D4-9DCB-68FFAB388D01}.Release|Any CPU.Build.0 = Release|Any CPU
-		{37619116-CCE8-465A-8B1F-081CA53364BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{37619116-CCE8-465A-8B1F-081CA53364BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{37619116-CCE8-465A-8B1F-081CA53364BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{37619116-CCE8-465A-8B1F-081CA53364BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
