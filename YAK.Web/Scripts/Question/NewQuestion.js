@@ -1,7 +1,7 @@
 ﻿(function() {
-	var converter = Markdown.getSanitizingConverter();
-                            
-    var editor = new Markdown.Editor("Content", converter);
-                
-    editor.run();
+    $("textarea.mdd_editor").MarkdownDeep({
+        help_location: "/Scripts/mdd_help.htm",
+        ExtraMode: true,
+        resizebar: false
+    });
 })();

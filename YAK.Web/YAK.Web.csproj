@@ -172,12 +172,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\MarkdownDeep License.txt" />
-    <Content Include="Scripts\MarkdownDeep Quick Reference.txt" />
     <Content Include="Scripts\MarkdownDeepLib.min.js" />
-    <Content Include="Scripts\Markdown\Markdown.Converter.js" />
-    <Content Include="Scripts\Markdown\Markdown.Editor.js" />
-    <Content Include="Scripts\Markdown\Markdown.Sanitizer.js" />
     <Content Include="Scripts\mdd_ajax_loader.gif" />
     <Content Include="Scripts\mdd_gripper.png" />
     <Content Include="Scripts\mdd_help.htm" />
