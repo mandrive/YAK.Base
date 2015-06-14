@@ -206,7 +206,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Stack\Index.cshtml" />
-    <Content Include="Views\Question\New.cshtml" />
+    <Content Include="Views\Question\QuestionForm.cshtml" />
     <Content Include="Views\Question\View.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -49,7 +49,7 @@ namespace Yak.Web.Controllers
         [HttpGet]
         public ActionResult New()
         {
-            return View();
+            return View("QuestionForm");
         }
 
         [HttpPost]
@@ -57,6 +57,23 @@ namespace Yak.Web.Controllers
         {
             var dto = questionForm.ToDto();
             _questionService.Add(dto);
+
+            return RedirectToAction("View", new { id = dto.Id });
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var question = _questionService.GetById(id);
+
+            return View("QuestionForm", new QuestionForm(question));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(QuestionForm questionForm)
+        {
+            var dto = questionForm.ToDto();
+            _questionService.Update(dto);
 
             return RedirectToAction("View", new { id = dto.Id });
         }

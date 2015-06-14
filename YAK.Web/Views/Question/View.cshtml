@@ -1,4 +1,6 @@
-﻿@model Yak.DTO.Question
+﻿@using System.Activities.Statements
+@using System.Linq
+@model Yak.DTO.Question
 
 @{
     ViewBag.Title = "View";
@@ -52,6 +54,16 @@
             @Html.DisplayFor(model => model.LastModificationDate)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+
+        <dd>
+            @foreach (var item in Model.Tags)
+            {
+                <span>@item.Name</span>
+            }
+        </dd>
     </dl>
 </div>
 <p>

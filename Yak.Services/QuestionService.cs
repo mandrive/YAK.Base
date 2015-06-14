@@ -5,6 +5,7 @@ using Yak.Database;
 using Yak.DTO;
 using Yak.SearchEngine.Interfaces;
 using Yak.Services.Interfaces;
+using Tag = Yak.Database.Entities.Tag;
 
 namespace Yak.Services
 {
@@ -26,7 +27,7 @@ namespace Yak.Services
 
         public IEnumerable<Question> GetAll()
         {
-            return _questionSearchEngineService.GetAll().ToList();
+            return _questionSearchEngineService.GetAll();
         }
 
         public IEnumerable<Question> Filter(Func<Question, bool> filter)
@@ -36,7 +37,7 @@ namespace Yak.Services
 
         public void Add(Question dto)
         {
-            var dbEntity = new Database.Entities.Question()
+            var dbEntity = new Database.Entities.Question
             {
                 Title = dto.Title,
                 Content = dto.Content,
@@ -44,6 +45,8 @@ namespace Yak.Services
                 LastModificationDate = dto.LastModificationDate,
                 Author = _databaseContext.Users.Single(u => u.Username == dto.Author)
             };
+
+            AddQuestionTags(dto, dbEntity);
 
             _databaseContext.Questions.Add(dbEntity);
             _databaseContext.SaveChanges();
@@ -61,14 +64,54 @@ namespace Yak.Services
             _databaseContext.SaveChanges();
         }
 
-        public void Update(Question entity)
+        public void Update(Question dto)
         {
-            throw new NotImplementedException();
+            var dbEntity = _databaseContext.Questions.Find(dto.Id);
+
+            dbEntity.Content = dto.Content;
+            dbEntity.Title = dto.Title;
+            dbEntity.LastModificationDate = DateTime.Now;
+
+            dbEntity.Tags.Clear();
+
+            AddQuestionTags(dto, dbEntity);
+
+            _databaseContext.SaveChanges();
+
+            _questionSearchEngineService.AddToIndex(dto);
         }
 
         public IEnumerable<Question> GetFromIndex(string query)
         {
             return _questionSearchEngineService.GetFiltered(query);
+        }
+
+        private void AddQuestionTags(Question dto, Database.Entities.Question entity)
+        {
+            var tagNames = dto.Tags.Select(x => x.Name);
+            var tags = _databaseContext.Tags.Where(t => tagNames.Contains(t.Name));
+
+            foreach (var tag in dto.Tags)
+            {
+                var currentTag = tag;
+                if (tags.Any(t => t.Name == currentTag.Name))
+                {
+                    if (entity.Tags == null)
+                    {
+                        entity.Tags = new List<Tag>();    
+                    }
+
+                    entity.Tags.Add(tags.Single(t => t.Name == currentTag.Name));
+                }
+                else
+                {
+                    var newTag = new Tag { Name = currentTag.Name };
+                    _databaseContext.Tags.Add(newTag);
+                    _databaseContext.SaveChanges();
+
+                    entity.Tags.Add(newTag);
+                }
+            }
         }
     }
 }
