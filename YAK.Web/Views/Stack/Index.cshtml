@@ -1,21 +1,34 @@
-﻿@model System.Collections.Generic.IEnumerable<Yak.DTO.Question>
+﻿@using Humanizer
+@model System.Collections.Generic.IEnumerable<Yak.DTO.Question>
 @{
     ViewBag.Title = "Home Page";
 }
+<div>
+    @foreach (var question in Model)
+    {
+        <div class="question-row">
+            <div class="votes-count box">
+                <div class="count-value">0</div>
+                <div class="count-label">votes</div>
+            </div>
+            <div class="box unanswered">
+                <div class="count-value">0</div>
+                <div class="count-label">answers</div>
+            </div>
+            <div class="box views">
+                <div class="count-value">0</div>
+                <div class="count-label">views</div>
+            </div>
 
-<div class="jumbotron" style="text-align:center;">
-    <h1>Questions</h1>
+            <div class="question-details-box clearfix">
+                <div class="question-title">@Html.ActionLink(@question.Title, "View", "Question", new { id = @question.Id }, null)</div>
+                <div class="clearfix">
+                    <span class="tags">
+
+                    </span>
+                    <span class="author-link">Written @question.CreateDate.Humanize() by @(!string.IsNullOrEmpty(question.AuthorName) ? question.AuthorName : "Anonymous")</span>
+                </div>
+            </div>
+        </div>
+    }
 </div>
-
-@foreach (var question in Model)
-{
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3> @Html.ActionLink(@question.Title, "View", "Question", new { id = @question.Id }, null)</h3>
-        </div>
-        <div class="panel-body">
-            <p>@question.Author - @question.CreateDate</p>
-            <p>@Html.Raw(@question.Content)</p>
-        </div>
-    </div>
-}

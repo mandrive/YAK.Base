@@ -1,33 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
 using Yak.Database.Entities;
 
 namespace Yak.Database.Migrations
 {
     internal sealed class Configuration : DbMigrationsConfiguration<DatabaseContext>
     {
-        private readonly bool _areTherePendingMigrations;
-
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-
-            var migrator = new DbMigrator(this);
-            _areTherePendingMigrations = migrator.GetPendingMigrations().Any();
         }
 
         protected override void Seed(DatabaseContext context)
         {
-            var firstUser = new User { Id = 1, Username = "admin", Password = "Password", Email = "admin@admintest.com" };
+            var firstUser = new User { Id = 1, Username = "admin", Password = "e6c83b282aeb2e022844595721cc00bbda47cb24537c1779f9bb84f04039e1676e6ba8573e588da1052510e3aa0a32a9e55879ae22b0c2d62136fc0a3e85f8bb", Email = "admin@admintest.com" };
 
             context.Users
                 .AddOrUpdate(
                 firstUser,
-                new User { Id = 2, Username = "£ukasz Wasak", Password = "Password", Email = "lwasak@mail.com" },
-                new User { Id = 3, Username = "Maciej Kozera", Password = "Password", Email = "mkozerak@mail.com" },
-                new User { Id = 4, Username = "Kajetan Targonski", Password = "Password", Email = "ktargonski@mail.com" }
+                new User { Id = 2, Username = "£ukasz Wasak", Password = "e6c83b282aeb2e022844595721cc00bbda47cb24537c1779f9bb84f04039e1676e6ba8573e588da1052510e3aa0a32a9e55879ae22b0c2d62136fc0a3e85f8bb", Email = "lwasak@mail.com" },
+                new User { Id = 3, Username = "Maciej Kozera", Password = "e6c83b282aeb2e022844595721cc00bbda47cb24537c1779f9bb84f04039e1676e6ba8573e588da1052510e3aa0a32a9e55879ae22b0c2d62136fc0a3e85f8bb", Email = "mkozerak@mail.com" },
+                new User { Id = 4, Username = "Kajetan Targonski", Password = "e6c83b282aeb2e022844595721cc00bbda47cb24537c1779f9bb84f04039e1676e6ba8573e588da1052510e3aa0a32a9e55879ae22b0c2d62136fc0a3e85f8bb", Email = "ktargonski@mail.com" }
                 );
 
             var question = new Question

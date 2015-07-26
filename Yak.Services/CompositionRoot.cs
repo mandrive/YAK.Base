@@ -11,6 +11,7 @@ namespace Yak.Services
         {
             serviceRegistry.Register<ISearchEngineExtendedService<Question>, QuestionService>(new PerRequestLifeTime());
             serviceRegistry.Register<IService<User>, UserService>();
+            serviceRegistry.Register<IUserValidationService, UserService>();
             serviceRegistry.Register<IndexRebuilder>(new PerRequestLifeTime());
         }
     }

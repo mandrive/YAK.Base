@@ -32,7 +32,7 @@ namespace Yak.Database.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Username = c.String(nullable: false),
-                        Password = c.String(nullable: false),
+                        Password = c.String(),
                         Email = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);

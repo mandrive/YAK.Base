@@ -1,0 +1,25 @@
+﻿@model Yak.Web.Models.LoginModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-lg-4 col-lg-offset-4">
+        <h2>Sign in</h2>
+        @using (Html.BeginForm("Index", "Login"))
+        {
+            if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+            {
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    @Html.ValidationSummary(true, "Errors: ")
+                </div>
+            }
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        }
+    </div>
+</div>
+

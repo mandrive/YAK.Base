@@ -7,66 +7,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View</h2>
-
-<div>
-    <h4>Question</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Author)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Author)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @*@Html.DisplayFor(model => model.Content)*@
-            @Html.Raw(Model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreateDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastModificationDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastModificationDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Tags)
-        </dt>
-
-        <dd>
-            @foreach (var item in Model.Tags)
-            {
-                <span>@item.Name</span>
-            }
-        </dd>
-    </dl>
+<div class="container" style="margin-top: 20px;">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>@Model.Title</h3>
+            <hr/>
+            <span><i>@Model.AuthorName - @Model.CreateDate.ToShortDateString()</i></span>
+        </div>
+        <div class="panel-body">
+            
+            <p>@Html.Raw(@Model.Content)</p>
+        </div>
+        @foreach (var item in Model.Tags)
+        {
+            <span>@item.Name</span>
+        }
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index", "Stack")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

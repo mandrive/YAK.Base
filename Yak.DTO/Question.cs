@@ -10,13 +10,26 @@ namespace Yak.DTO
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        [ElasticProperty(OptOut = true)]
         public DateTime CreateDate { get; set; }
-        [ElasticProperty(OptOut = true)]
         public DateTime LastModificationDate { get; set; }
-        [ElasticProperty(OptOut = true)]
-        public string Author { get; set; }
 
+        public string AuthorName
+        {
+            get
+            {
+                if (Author != null)
+                {
+                    return Author.Username;
+                }
+
+                return string.Empty;
+            }
+        }
+
+        [ElasticProperty(OptOut = true)]
+        public User Author { get; set; }
+
+        [ElasticProperty(OptOut = true)]
         public List<Tag> Tags { get; set; }
 
         public Question()
@@ -30,7 +43,7 @@ namespace Yak.DTO
             Content = question.Content;
             CreateDate = question.CreateDate;
             LastModificationDate = question.LastModificationDate;
-            Author = question.Author.Username;
+            Author = question.Author != null ? new User(question.Author) : null;
             Tags = question.Tags.Select(t => new Tag(t)).ToList();
         }
     }

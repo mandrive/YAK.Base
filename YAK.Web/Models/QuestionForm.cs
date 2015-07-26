@@ -34,8 +34,7 @@ namespace Yak.Web.Models
                 Id = Id,
                 Title = Title,
                 Content = Content,
-                Tags = Tags.Split(',').Select(part => new Tag(part)).ToList(),
-                Author = "Łukasz Wasak", //TODO 
+                Tags = Tags != null ? Tags.Split(',').Select(part => new Tag(part)).ToList() : null,
                 CreateDate = DateTime.Now,
                 LastModificationDate = DateTime.Now
             };

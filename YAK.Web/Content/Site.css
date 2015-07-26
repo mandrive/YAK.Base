@@ -32,70 +32,62 @@ div.empty-message {
     text-align: center;
 }
 
-body 
-{ 
-	background-color: White;
+body {
+    background-color: White;
     font-family: sans-serif;
 }
 
 blockquote {
-	border-left: 2px dotted #888;
-	padding-left: 5px;
-	background: #d0f0ff;
+    border-left: 2px dotted #888;
+    padding-left: 5px;
+    background: #d0f0ff;
 }
 
-.wmd-panel
-{
-	margin-left: 10%;
-	margin-right: 10%;
-	width: 80%;
-	min-width: 500px;
+.wmd-panel {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    min-width: 500px;
 }
 
-.wmd-button-bar 
-{
-	width: 100%;
-	background-color: Silver; 
+.wmd-button-bar {
+    width: 100%;
+    background-color: Silver;
 }
 
-#Content 
-{ 
-	min-height: 300px;
-	width: 100%;
-	background-color: Gainsboro;
-	border: 1px solid DarkGray;
+#Content {
+    min-height: 300px;
+    width: 100%;
+    background-color: Gainsboro;
+    border: 1px solid DarkGray;
 }
 
-.wmd-preview 
-{
+.wmd-preview {
     margin-top: 30px;
     min-height: 300px;
-	background-color: #c0e0ff;
+    background-color: #c0e0ff;
     border: 3px darkolivegreen dashed;
     padding: 10px;
 }
 
-.wmd-button-row 
-{
-	position: relative; 
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	margin-top: 10px;
-	padding: 0px;  
-	height: 20px;
+.wmd-button-row {
+    position: relative;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    padding: 0px;
+    height: 20px;
 }
 
-.wmd-spacer
-{
-	width: 1px; 
-	height: 20px; 
-	margin-left: 14px;
-	
-	position: absolute;
-	background-color: Silver;
-	display: inline-block; 
-	list-style: none;
+.wmd-spacer {
+    width: 1px;
+    height: 20px;
+    margin-left: 14px;
+    position: absolute;
+    background-color: Silver;
+    display: inline-block;
+    list-style: none;
 }
 
 .wmd-button {
@@ -109,53 +101,109 @@ blockquote {
     cursor: pointer;
 }
 
-.wmd-button > span {
-    background-image: url(../Content/Image/wmd-buttons.png);
-    background-repeat: no-repeat;
-    background-position: 0px 0px;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-}
+    .wmd-button > span {
+        background-image: url(../Content/Image/wmd-buttons.png);
+        background-repeat: no-repeat;
+        background-position: 0px 0px;
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+    }
 
-.wmd-spacer1
-{
+.wmd-spacer1 {
     left: 50px;
 }
-.wmd-spacer2
-{
+
+.wmd-spacer2 {
     left: 175px;
 }
-.wmd-spacer3
-{
+
+.wmd-spacer3 {
     left: 300px;
 }
 
-.wmd-prompt-background
-{
-	background-color: Black;
+.wmd-prompt-background {
+    background-color: Black;
 }
 
-.wmd-prompt-dialog
-{
-	border: 1px solid #999999;
-	background-color: #F5F5F5;
+.wmd-prompt-dialog {
+    border: 1px solid #999999;
+    background-color: #F5F5F5;
 }
 
-.wmd-prompt-dialog > div {
-	font-size: 0.8em;
-	font-family: arial, helvetica, sans-serif;
+    .wmd-prompt-dialog > div {
+        font-size: 0.8em;
+        font-family: arial, helvetica, sans-serif;
+    }
+
+
+    .wmd-prompt-dialog > form > input[type="text"] {
+        border: 1px solid #999999;
+        color: black;
+    }
+
+    .wmd-prompt-dialog > form > input[type="button"] {
+        border: 1px solid #888888;
+        font-family: trebuchet MS, helvetica, sans-serif;
+        font-size: 0.8em;
+        font-weight: bold;
+    }
+
+.question-row {
+    padding: 0.5em 0em 0.5em 0em;
+    border-top: 1px solid #ECECEC;
 }
 
+    .question-row .box {
+        margin: 0 0.1em 0 0;
+        padding: 1px;
+        width: 4em;
+        text-align: center;
+        float: left;
+    }
 
-.wmd-prompt-dialog > form > input[type="text"] {
-	border: 1px solid #999999;
-	color: black;
+    .question-row .box {
+        float: left;
+        width: 4.4em;
+    }
+
+        .question-row .box.unanswered {
+            background-color: #265040;
+            color: white;
+            float: left;
+        }
+
+        .question-row .box.unanswered {
+            background-color: #265040;
+            color: white;
+        }
+
+    .question-row .count-value {
+        font-size: 1.4em;
+        font-weight: bold;
+        height: 2ex;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .question-row .votes-count .count-label {
+        font-size: smaller;
+        margin-top: 5px;
+    }
+
+.author-link {
+    float: right;
 }
 
-.wmd-prompt-dialog > form > input[type="button"]{
-	border: 1px solid #888888;
-	font-family: trebuchet MS, helvetica, sans-serif;
-	font-size: 0.8em;
-	font-weight: bold;
+.question-title {
+    font-size: larger;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.markup-preview-box .mdd_preview {
+    border: 1px solid DarkGray;
+    min-height: 14px;
+    border-radius: 4px;
+    padding: 3px;
 }

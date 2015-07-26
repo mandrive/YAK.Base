@@ -1,19 +1,23 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
+using log4net.Config;
 using LightInject;
-using Yak.Database;
-using Yak.SearchEngine;
-using Yak.Web;
-using Yak.Services.Interfaces;
 using Yak.DTO;
-using Yak.Services;
+using Yak.Services.Interfaces;
+using Yak.Web;
+using Yak.Web.Interfaces;
+using Yak.Web.Models;
 
 namespace Yak
 {
     public class MvcApplication : HttpApplication
     {
+        private static ServiceContainer _serviceContainer;
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -21,14 +25,34 @@ namespace Yak
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            SetupServiceContainer();
+            _serviceContainer = new ServiceContainer();
+            _serviceContainer.RegisterControllers(typeof(MvcApplication).Assembly);
+            _serviceContainer.EnableMvc();
+            
+            XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
 
-        private void SetupServiceContainer()
+        public void WindowsAuthentication_OnAuthenticate(object sender, WindowsAuthenticationEventArgs e)
         {
-            var container = new ServiceContainer();
-            container.RegisterControllers(typeof(MvcApplication).Assembly);
-            container.EnableMvc();
+            var customPrincipal = User as ICustomPrincipal;
+            if (customPrincipal == null && e.Identity != null)
+            {
+                customPrincipal = new CustomPrincipal(_serviceContainer.GetInstance<IService<User>>(), e.Identity);
+                HttpContext.Current.User = customPrincipal;
+            }
+
+            if (customPrincipal != null && customPrincipal.DatabaseUser == null)
+            {
+                var userSrvice = _serviceContainer.GetInstance<IService<User>>();
+                var newUser = new User
+                {
+                    Username = customPrincipal.Identity.Name.Split('\\')[1],
+                    // TODO: somehow get user email address from AD
+                    Email = "test@test.test"
+                };
+                
+                userSrvice.Add(newUser);
+            }
         }
     }
 }

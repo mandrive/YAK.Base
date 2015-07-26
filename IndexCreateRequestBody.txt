@@ -1,3 +1,4 @@
+/* CREATE INDEX */
 PUT http://localhost:9200/yakbase/
 
 {
@@ -38,3 +39,9 @@ PUT http://localhost:9200/yakbase/
 		}
 	}
 }
+
+/* CLEAR ALL DATA FROM INDEX */
+POST http://localhost:9200/yakbase/_flush
+
+/* DELETE INDEX */
+DELETE http://localhost:9200/yakbase/

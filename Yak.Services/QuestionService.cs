@@ -43,7 +43,7 @@ namespace Yak.Services
                 Content = dto.Content,
                 CreateDate = dto.CreateDate,
                 LastModificationDate = dto.LastModificationDate,
-                Author = _databaseContext.Users.Single(u => u.Username == dto.Author)
+                Author = _databaseContext.Users.Single(u => u.Id == 1)
             };
 
             AddQuestionTags(dto, dbEntity);
@@ -88,28 +88,31 @@ namespace Yak.Services
 
         private void AddQuestionTags(Question dto, Database.Entities.Question entity)
         {
-            var tagNames = dto.Tags.Select(x => x.Name);
-            var tags = _databaseContext.Tags.Where(t => tagNames.Contains(t.Name));
-
-            foreach (var tag in dto.Tags)
+            if (dto.Tags != null)
             {
-                var currentTag = tag;
-                if (tags.Any(t => t.Name == currentTag.Name))
+                var tagNames = dto.Tags.Select(x => x.Name);
+                var tags = _databaseContext.Tags.Where(t => tagNames.Contains(t.Name));
+
+                foreach (var tag in dto.Tags)
                 {
-                    if (entity.Tags == null)
+                    var currentTag = tag;
+                    if (tags.Any(t => t.Name == currentTag.Name))
                     {
-                        entity.Tags = new List<Tag>();    
+                        if (entity.Tags == null)
+                        {
+                            entity.Tags = new List<Tag>();
+                        }
+
+                        entity.Tags.Add(tags.Single(t => t.Name == currentTag.Name));
                     }
+                    else
+                    {
+                        var newTag = new Tag { Name = currentTag.Name };
+                        _databaseContext.Tags.Add(newTag);
+                        _databaseContext.SaveChanges();
 
-                    entity.Tags.Add(tags.Single(t => t.Name == currentTag.Name));
-                }
-                else
-                {
-                    var newTag = new Tag { Name = currentTag.Name };
-                    _databaseContext.Tags.Add(newTag);
-                    _databaseContext.SaveChanges();
-
-                    entity.Tags.Add(newTag);
+                        entity.Tags.Add(newTag);
+                    }
                 }
             }
         }

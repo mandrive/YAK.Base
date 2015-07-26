@@ -1,0 +1,112 @@
+DEBUG 2015-06-14 21:04:24,531  4409ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2013 ms
+DEBUG 2015-06-14 21:04:27,795  7673ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 33 ms
+DEBUG 2015-06-14 21:04:37,973 17851ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 36 ms
+DEBUG 2015-06-14 21:04:38,323 18201ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 34 ms
+DEBUG 2015-06-14 21:04:39,309 19187ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 37 ms
+DEBUG 2015-06-14 21:04:39,603 19481ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 34 ms
+DEBUG 2015-06-14 21:04:40,856 20735ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 32 ms
+DEBUG 2015-06-14 21:04:41,163 21042ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 33 ms
+DEBUG 2015-06-14 21:05:28,627 68506ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 34 ms
+DEBUG 2015-06-14 21:05:29,031 68909ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 35 ms
+DEBUG 2015-06-14 21:05:30,641 70519ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 37 ms
+DEBUG 2015-06-14 21:05:30,974 70852ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 36 ms
+DEBUG 2015-06-14 21:05:31,874 71753ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 36 ms
+DEBUG 2015-06-14 21:05:32,186 72064ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 35 ms
+DEBUG 2015-06-14 21:05:32,788 72667ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 42 ms
+DEBUG 2015-06-14 21:05:33,130 73008ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 33 ms
+DEBUG 2015-06-14 21:05:33,544 73422ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 36 ms
+DEBUG 2015-06-14 21:05:34,181 74060ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 37 ms
+DEBUG 2015-06-14 21:06:26,266 126144ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 25 ms
+DEBUG 2015-06-14 21:06:26,652 126530ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:06:50,139 150017ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 5 ms
+DEBUG 2015-06-14 21:06:50,413 150291ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:03,932 163810ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:04,157 164036ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:04,694 164572ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:04,929 164808ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:05,396 165275ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:05,624 165503ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:49,478 209356ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:49,892 209770ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:50,167 210045ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:50,517 210395ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:51,064 210943ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:51,298 211177ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:52,233 212111ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:52,472 212351ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:53,046 212924ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:53,322 213200ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:53,663 213541ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:53,961 213839ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:54,479 214357ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:54,738 214616ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:55,011 214889ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:07:55,287 215165ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:18,663   385ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 331 ms
+DEBUG 2015-06-14 21:08:19,821  1543ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:21,109  2831ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:21,342  3064ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:21,918  3639ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:22,188  3909ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:22,717  4439ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:22,952  4674ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:23,336  5057ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:23,646  5367ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:24,344  6065ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:24,620  6342ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:47,627 29349ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:48,011 29732ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:49,909 31631ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:50,208 31930ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:50,931 32653ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:51,238 32960ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:51,624 33346ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:52,093 33815ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:52,238 33960ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:52,467 34189ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:53,054 34776ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:53,328 35050ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:53,748 35469ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:54,002 35723ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:54,314 36036ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:54,617 36339ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:54,889 36611ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:08:55,187 36909ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:09:13,637 55359ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 3 ms
+DEBUG 2015-06-14 21:09:13,916 55638ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:09:18,332 60054ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:09:18,635 60357ms MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:15:59,293 MvcApplication         ion_OnAuthenticate - Windows Authentication: 1769 ms
+DEBUG 2015-06-14 21:16:02,159 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:16:02,902 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:16:03,197 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:16:03,780 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:16:04,475 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:16:04,613 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 2015-06-14 21:16:04,880 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:SS MvcApplication         ion_OnAuthenticate - Windows Authentication: 1755 ms
+DEBUG 21:17:SS MvcApplication         ion_OnAuthenticate - Windows Authentication: 1294 ms
+DEBUG 21:17:SS MvcApplication         ion_OnAuthenticate - Windows Authentication: 1737 ms
+DEBUG 21:17:SS MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:SS MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:52 ion_OnAuthenticate - Windows Authentication: 469 ms
+DEBUG 21:17:52 ion_OnAuthenticate - Windows Authentication: 523 ms
+DEBUG 21:17:53 ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:54 ion_OnAuthenticate - Windows Authentication: 3 ms
+DEBUG 21:17:54 ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:54 ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:55 ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:55 ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:17:55 ion_OnAuthenticate - Windows Authentication: 3 ms
+DEBUG 21:18:52 MvcApplication         ion_OnAuthenticate - Windows Authentication: 1732 ms
+DEBUG 21:18:53 MvcApplication         ion_OnAuthenticate - Windows Authentication: 3 ms
+DEBUG 21:18:54 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:54 MvcApplication         ion_OnAuthenticate - Windows Authentication: 3 ms
+DEBUG 21:18:54 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:55 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:55 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:55 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:56 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:57 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:57 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms
+DEBUG 21:18:57 MvcApplication         ion_OnAuthenticate - Windows Authentication: 2 ms

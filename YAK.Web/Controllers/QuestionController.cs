@@ -5,6 +5,7 @@ using Yak.DTO;
 using Yak.Services.Interfaces;
 using Yak.Services.Utils;
 using Yak.Web.Models;
+using Yak.Web.Utils;
 
 namespace Yak.Web.Controllers
 {
@@ -56,6 +57,7 @@ namespace Yak.Web.Controllers
         public ActionResult New(QuestionForm questionForm)
         {
             var dto = questionForm.ToDto();
+            dto.Author = _userService.Filter(u => u.Username == UsernameExtractor.ExtractUsername(User.Identity.Name)).SingleOrDefault();
             _questionService.Add(dto);
 
             return RedirectToAction("View", new { id = dto.Id });
