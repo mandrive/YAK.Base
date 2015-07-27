@@ -43,17 +43,17 @@ namespace Yak.Services
                 Content = dto.Content,
                 CreateDate = dto.CreateDate,
                 LastModificationDate = dto.LastModificationDate,
-                Author = _databaseContext.Users.Single(u => u.Id == 1)
+                Author = _databaseContext.Users.Single(u => u.Id == dto.Author.Id)
             };
-
-            AddQuestionTags(dto, dbEntity);
 
             _databaseContext.Questions.Add(dbEntity);
             _databaseContext.SaveChanges();
 
             dto.Id = dbEntity.Id;
 
-            _questionSearchEngineService.AddToIndex(dto);
+            AddQuestionTags(dto.Tags, dbEntity);
+
+            _questionSearchEngineService.AddToIndex(new Question(dbEntity));
         }
 
         public void Delete(Question dto)
@@ -74,11 +74,11 @@ namespace Yak.Services
 
             dbEntity.Tags.Clear();
 
-            AddQuestionTags(dto, dbEntity);
+            AddQuestionTags(dto.Tags, dbEntity);
 
             _databaseContext.SaveChanges();
 
-            _questionSearchEngineService.AddToIndex(dto);
+            _questionSearchEngineService.AddToIndex(new Question(dbEntity));
         }
 
         public IEnumerable<Question> GetFromIndex(string query)
@@ -86,24 +86,25 @@ namespace Yak.Services
             return _questionSearchEngineService.GetFiltered(query);
         }
 
-        private void AddQuestionTags(Question dto, Database.Entities.Question entity)
+        private void AddQuestionTags(IList<DTO.Tag> tags, Database.Entities.Question entity)
         {
-            if (dto.Tags != null)
+            if (tags != null && tags.Count > 0)
             {
-                var tagNames = dto.Tags.Select(x => x.Name);
-                var tags = _databaseContext.Tags.Where(t => tagNames.Contains(t.Name));
+                var tagNames = tags.Select(x => x.Name);
+                var dbTags = _databaseContext.Tags.Where(t => tagNames.Contains(t.Name));
 
-                foreach (var tag in dto.Tags)
+                if (entity.Tags == null)
+                {
+                    entity.Tags = new List<Tag>();
+                }
+
+                foreach (var tag in tags)
                 {
                     var currentTag = tag;
-                    if (tags.Any(t => t.Name == currentTag.Name))
+                    if (dbTags.Any(t => t.Name == currentTag.Name))
                     {
-                        if (entity.Tags == null)
-                        {
-                            entity.Tags = new List<Tag>();
-                        }
-
-                        entity.Tags.Add(tags.Single(t => t.Name == currentTag.Name));
+                        var dbTag = dbTags.Single(t => t.Name == currentTag.Name);
+                        entity.Tags.Add(dbTag);
                     }
                     else
                     {

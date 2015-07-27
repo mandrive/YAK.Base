@@ -1,5 +1,4 @@
-﻿using Nest;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,11 +24,9 @@ namespace Yak.DTO
                 return string.Empty;
             }
         }
-
-        [ElasticProperty(OptOut = true)]
+        
         public User Author { get; set; }
 
-        [ElasticProperty(OptOut = true)]
         public List<Tag> Tags { get; set; }
 
         public Question()

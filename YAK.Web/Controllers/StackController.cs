@@ -7,9 +7,9 @@ namespace Yak.Web.Controllers
 {
     public class StackController : Controller
     {
-        private readonly ISearchEngineExtendedService<Question> _questionService;
+        private readonly IService<Question> _questionService;
 
-        public StackController(ISearchEngineExtendedService<Question> questionService)
+        public StackController(IService<Question> questionService)
         {
             _questionService = questionService;
         }

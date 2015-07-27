@@ -5,46 +5,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-    <div class="well" style="margin-top: 20px; text-align:center; padding: 1px;"><h1>Ask a question</h1></div>
+    <div class="well" style="margin-top: 20px; text-align:center; padding: 1px;">
+        <h1>Ask a question</h1>
+    </div>
 </div>
 <hr class="dl-horizontal" />
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="row">
-            <div class="input-group">
-                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "input-group-addon" })
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-            <br/>
-            <div>
-                <div class="mdd_toolbar"></div>
-                @Html.TextAreaFor(model => model.Content, new { @class = "mdd_editor form-control" })
-                <br/>
-                <div class="markup-preview-box">
-                    <span>Preview:</span>
-                    <div class="mdd_preview"></div>
-                </div>
-            </div>
-            <br/>
-            <div class="input-group">
-                @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "input-group-addon" })
-                @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-            <hr class="dl-horizontal" />
-                <input type="submit" value="Create" class="btn btn-success" style="width: 100%;" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="input-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "input-group-addon" })
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
         </div>
-
-    }
-
-@*<div class="container clearfix" style="margin-top: 40px;">
-        <div class="row">
-            <div class="btn-group btn-group-justified">
-                @Html.ActionLink("Back to List", "Index", "Stack", new { @role = "button", @class = "btn btn-default" })
+        <br />
+        <div>
+            <div class="mdd_toolbar"></div>
+            @Html.TextAreaFor(model => model.Content, new { @class = "mdd_editor form-control" })
+            <br />
+            <div class="markup-preview-box" style="display: none;">
+                <span>Preview:</span>
+                <div class="mdd_preview"></div>
             </div>
         </div>
-    </div>*@
+        <hr />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Tags</h4>
+            </div>
+            <div class="panel-body">
+                <input type="text" name="tags" placeholder="Tags" class="tm-input form-control" />
+            </div>
+        </div>
+        <hr class="dl-horizontal" />
+        <input type="submit" value='@((Model != null && Model.Id > 0) ? "Update" : "Create")' class="btn btn-success" style="width: 100%;" />
+    </div>
+}
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/MarkdownDeepLib.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Question/NewQuestion.js")"></script>
+<script type="text/javascript">
+    PrepareMarkdownEditor();
+    PrepareTagsManager();
+    @if (Model != null && Model.QuestionTags != null)
+    {
+        @:PushTagsToTagsManager('@Model.QuestionTags');
+    }
+</script>

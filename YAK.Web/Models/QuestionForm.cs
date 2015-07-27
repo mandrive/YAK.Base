@@ -13,7 +13,7 @@ namespace Yak.Web.Models
         public string Title { get; set; }
         public string Content { get; set; }
 
-        public string Tags { get; set; }
+        public string QuestionTags { get; set; }
 
         public QuestionForm()
         {
@@ -24,7 +24,7 @@ namespace Yak.Web.Models
             Id = question.Id;
             Title = question.Title;
             Content = question.Content;
-            Tags = string.Join(",", question.Tags.Select(t => t.Name));
+            QuestionTags = string.Join(",", question.Tags.Select(t => t.Name));
         }
 
         public Question ToDto()
@@ -34,7 +34,7 @@ namespace Yak.Web.Models
                 Id = Id,
                 Title = Title,
                 Content = Content,
-                Tags = Tags != null ? Tags.Split(',').Select(part => new Tag(part)).ToList() : null,
+                Tags = QuestionTags != null ? QuestionTags.Split(',').Select(part => new Tag(part)).ToList() : null,
                 CreateDate = DateTime.Now,
                 LastModificationDate = DateTime.Now
             };

@@ -24,7 +24,13 @@
                 <div class="question-title">@Html.ActionLink(@question.Title, "View", "Question", new { id = @question.Id }, null)</div>
                 <div class="clearfix">
                     <span class="tags">
-
+                        @if (question.Tags != null)
+                        {
+                            foreach (var tag in question.Tags)
+                            {
+                                <span class="label label-default">@tag.Name</span>
+                            }
+                        }
                     </span>
                     <span class="author-link">Written @question.CreateDate.Humanize() by @(!string.IsNullOrEmpty(question.AuthorName) ? question.AuthorName : "Anonymous")</span>
                 </div>

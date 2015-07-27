@@ -11,12 +11,14 @@ namespace Yak.Web.Controllers
 {
     public class QuestionController : Controller
     {
-        private readonly ISearchEngineExtendedService<Question> _questionService;
+        private readonly ISearchEngineExtendedService<Question> _questionSearchService;
+        private readonly IService<Question> _questionService;
         private readonly IService<User> _userService;
         private readonly IndexRebuilder _indexRebuilder;
 
-        public QuestionController(ISearchEngineExtendedService<Question> questionService, IService<User> userService, IndexRebuilder indexRebuilder)
+        public QuestionController(ISearchEngineExtendedService<Question> questionSearchService, IService<Question> questionService, IService<User> userService, IndexRebuilder indexRebuilder)
         {
+            _questionSearchService = questionSearchService;
             _questionService = questionService;
             _userService = userService;
             _indexRebuilder = indexRebuilder;
@@ -31,7 +33,7 @@ namespace Yak.Web.Controllers
 
         public ActionResult FilterQuestions(string query)
         {
-            var filteredQuestions = _questionService.GetFromIndex(query);
+            var filteredQuestions = _questionSearchService.GetFromIndex(query);
             var jsonResponse = JsonConvert.SerializeObject(filteredQuestions.Select(n => new
             {
                 id = n.Id,

@@ -34,14 +34,48 @@ PUT http://localhost:9200/yakbase/
 					"content" : {
 						"type" : "string",
 						"analyzer" : "standard"
-					}
+					},
+                    "author": {
+                        "properties":
+                        {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "username": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            }
+                        }
+                    },
+					"createdate" : {
+						"type" : "date",
+						"analyzer" : "standard"
+					},
+					"lastmodificationdate" : {
+						"type" : "date",
+						"analyzer" : "standard"
+					},
+					"tagsids": {
+						"type": "integer",
+						"analyzer" : "standard"
+					},
+                    "tags": {
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "name": {
+                                "type": "string",
+                                "analyzer" : "standard"
+                            }
+                        }
+                    }
 			}
 		}
 	}
 }
-
-/* CLEAR ALL DATA FROM INDEX */
-POST http://localhost:9200/yakbase/_flush
 
 /* DELETE INDEX */
 DELETE http://localhost:9200/yakbase/
