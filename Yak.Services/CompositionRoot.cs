@@ -9,10 +9,13 @@ namespace Yak.Services
     {
         public void Compose(IServiceRegistry serviceRegistry)
         {
-            serviceRegistry.Register<ISearchEngineExtendedService<Question>, QuestionService>(new PerRequestLifeTime());
-            serviceRegistry.Register<IService<Question>, QuestionComplexService>(new PerRequestLifeTime());
+            serviceRegistry.Register<ISearchEngineExtendedService<Question>, QuestionSearchEngineService>();
+            serviceRegistry.Register<IService<Question>, QuestionService>();
             serviceRegistry.Register<IService<User>, UserService>();
             serviceRegistry.Register<IService<Tag>, TagsService>();
+            serviceRegistry.Register<IService<Vote>, VoteService>();
+            serviceRegistry.Register<IService<Answer>, AnswerService>();
+            serviceRegistry.Register<IService<Comment>, CommentService>();
             serviceRegistry.Register<IUserValidationService, UserService>();
             serviceRegistry.Register<IndexRebuilder>(new PerRequestLifeTime());
         }

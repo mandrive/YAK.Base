@@ -6,29 +6,34 @@ using Yak.Services.Interfaces;
 using Yak.Services.Utils;
 using Yak.Web.Models;
 using Yak.Web.Utils;
+using Yak.Web.BaseUtils;
 
 namespace Yak.Web.Controllers
 {
-    public class QuestionController : Controller
+    public class QuestionController : BaseController
     {
         private readonly ISearchEngineExtendedService<Question> _questionSearchService;
         private readonly IService<Question> _questionService;
         private readonly IService<User> _userService;
+        private readonly IService<Vote> _voteService;
         private readonly IndexRebuilder _indexRebuilder;
 
-        public QuestionController(ISearchEngineExtendedService<Question> questionSearchService, IService<Question> questionService, IService<User> userService, IndexRebuilder indexRebuilder)
+        public QuestionController(ISearchEngineExtendedService<Question> questionSearchService, IService<Question> questionService, IService<User> userService, IService<Vote> voteService, IndexRebuilder indexRebuilder)
         {
             _questionSearchService = questionSearchService;
             _questionService = questionService;
             _userService = userService;
             _indexRebuilder = indexRebuilder;
+            _voteService = voteService;
         }
 
         public ActionResult View(int id)
         {
             var question = _questionService.GetById(id);
             question.Content = new MarkdownDeep.Markdown().Transform(question.Content);
-            return View(question);
+            var questionViewModel = new QuestionViewModel(question);
+
+            return View(questionViewModel);
         }
 
         public ActionResult FilterQuestions(string query)
@@ -47,6 +52,62 @@ namespace Yak.Web.Controllers
                 });
 
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult VoteUp(int questionId)
+        {
+            var newVote = new Vote
+            {
+                PointValue = true,
+                User = User.DatabaseUser
+            };
+
+            _voteService.Add(newVote);
+
+            var question = _questionService.GetById(questionId);
+            question.RankPoint++;
+            question.Votes.Add(newVote);
+
+            var voteDown = question.Votes.SingleOrDefault(v => v.User.Id == User.DatabaseUser.Id && !v.PointValue);
+
+            if (voteDown != null)
+            {
+                question.Votes.Remove(voteDown);
+                _voteService.Delete(voteDown);
+                question.RankPoint++;
+            }
+
+            _questionService.Update(question);
+
+            return Json(new { rankPoint = question.RankPoint });
+        }
+
+        public JsonResult VoteDown(int questionId)
+        {
+            var newVote = new Vote
+            {
+                PointValue = false,
+                User = User.DatabaseUser
+            };
+
+            _voteService.Add(newVote);
+
+            var question = _questionService.GetById(questionId);
+            question.RankPoint--;
+            question.Votes.Add(newVote);
+
+            var voteUp = question.Votes.SingleOrDefault(v => v.User.Id == User.DatabaseUser.Id && v.PointValue);
+
+            if (voteUp != null)
+            {
+                question.Votes.Remove(voteUp);
+                _voteService.Delete(voteUp);
+                question.RankPoint--;
+            }
+
+            _questionService.Update(question);
+
+            return Json(new { rankPoint = question.RankPoint });
         }
 
         [HttpGet]

@@ -50,16 +50,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnswerService.cs" />
+    <Compile Include="CommentService.cs" />
     <Compile Include="CompositionRoot.cs" />
     <Compile Include="Interfaces\ISearchEngineExtendedService.cs" />
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\IUserValidationService.cs" />
-    <Compile Include="QuestionComplexService.cs" />
     <Compile Include="QuestionService.cs" />
+    <Compile Include="QuestionSearchEngineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagsService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Utils\IndexRebuilder.cs" />
+    <Compile Include="VoteService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Yak.Database\Yak.Database.csproj">

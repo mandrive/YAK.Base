@@ -24,8 +24,9 @@
             <div class="mdd_toolbar"></div>
             @Html.TextAreaFor(model => model.Content, new { @class = "mdd_editor form-control" })
             <br />
+            <input type="button" class="btn btn-default toggle-preview" value="Show/Hide preview" />
             <div class="markup-preview-box" style="display: none;">
-                <span>Preview:</span>
+                <h4>Preview:</h4>
                 <div class="mdd_preview"></div>
             </div>
         </div>

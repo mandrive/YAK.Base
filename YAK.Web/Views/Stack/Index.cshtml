@@ -7,17 +7,13 @@
     @foreach (var question in Model)
     {
         <div class="question-row">
-            <div class="votes-count box">
-                <div class="count-value">0</div>
-                <div class="count-label">votes</div>
-            </div>
             <div class="box unanswered">
                 <div class="count-value">0</div>
                 <div class="count-label">answers</div>
             </div>
-            <div class="box views">
-                <div class="count-value">0</div>
-                <div class="count-label">views</div>
+            <div class="votes-count box">
+                <div class="count-value">@question.RankPoint</div>
+                <div class="count-label">votes</div>
             </div>
 
             <div class="question-details-box clearfix">

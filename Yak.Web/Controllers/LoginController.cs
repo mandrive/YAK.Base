@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
-using Yak.DTO;
 using Yak.Services.Interfaces;
+using Yak.Web.BaseUtils;
 using Yak.Web.Models;
 
 namespace Yak.Web.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private readonly IUserValidationService _userService;
 

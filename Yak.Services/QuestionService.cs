@@ -3,21 +3,66 @@ using System.Collections.Generic;
 using System.Linq;
 using Yak.Database;
 using Yak.DTO;
-using Yak.SearchEngine.Interfaces;
 using Yak.Services.Interfaces;
 using Tag = Yak.Database.Entities.Tag;
 
 namespace Yak.Services
 {
-    public class QuestionService : ISearchEngineExtendedService<Question>
+    public class QuestionService : IService<Question>
     {
-        private readonly DatabaseContext _databaseContext;
-        private readonly ISearchEngineService<Question> _questionSearchEngineService;
+        private ISearchEngineExtendedService<Question> _searchEngineService;
+        private DatabaseContext _databaseContext;
 
-        public QuestionService(DatabaseContext databaseContext, ISearchEngineService<Question> questionSearchEngineService)
+        public QuestionService(DatabaseContext databaseContext, ISearchEngineExtendedService<Question> searchEngineService)
         {
+            _searchEngineService = searchEngineService;
             _databaseContext = databaseContext;
-            _questionSearchEngineService = questionSearchEngineService;
+        }
+
+        public void Add(Question entity)
+        {
+            var dbEntity = new Database.Entities.Question
+            {
+                Title = entity.Title,
+                Content = entity.Content,
+                CreateDate = entity.CreateDate,
+                LastModificationDate = entity.LastModificationDate,
+                Author = _databaseContext.Users.Single(u => u.Id == entity.Author.Id)
+            };
+
+            _databaseContext.Questions.Add(dbEntity);
+            _databaseContext.SaveChanges();
+
+            entity.Id = dbEntity.Id;
+
+            AddQuestionTags(entity.Tags, dbEntity);
+
+            _searchEngineService.Add(new Question(dbEntity));
+        }
+
+        public void Delete(Question entity)
+        {
+            var dbEntity = _databaseContext.Questions.Find(entity.Id);
+
+            _databaseContext.Questions.Remove(dbEntity);
+            _databaseContext.SaveChanges();
+        }
+
+        public IEnumerable<Question> Filter(Func<Question, bool> filter)
+        {
+            return _searchEngineService.Filter(filter);
+        }
+
+        public IEnumerable<Question> GetAll()
+        {
+            var questions = _databaseContext.Questions
+                .Include("Tags")
+                .Include("Answers")
+                .Include("Comments")
+                .Include("Votes")
+                .ToList();
+
+            return questions.Select(q => new Question(q));
         }
 
         public Question GetById(int id)
@@ -25,65 +70,23 @@ namespace Yak.Services
             return new Question(_databaseContext.Questions.Find(id));
         }
 
-        public IEnumerable<Question> GetAll()
+        public void Update(Question entity)
         {
-            return _questionSearchEngineService.GetAll();
-        }
+            var dbEntity = _databaseContext.Questions.Find(entity.Id);
 
-        public IEnumerable<Question> Filter(Func<Question, bool> filter)
-        {
-            return _questionSearchEngineService.GetAll().Where(filter);
-        }
-
-        public void Add(Question dto)
-        {
-            var dbEntity = new Database.Entities.Question
-            {
-                Title = dto.Title,
-                Content = dto.Content,
-                CreateDate = dto.CreateDate,
-                LastModificationDate = dto.LastModificationDate,
-                Author = _databaseContext.Users.Single(u => u.Id == dto.Author.Id)
-            };
-
-            _databaseContext.Questions.Add(dbEntity);
-            _databaseContext.SaveChanges();
-
-            dto.Id = dbEntity.Id;
-
-            AddQuestionTags(dto.Tags, dbEntity);
-
-            _questionSearchEngineService.AddToIndex(new Question(dbEntity));
-        }
-
-        public void Delete(Question dto)
-        {
-            var dbEntity = _databaseContext.Questions.Find(dto.Id);
-
-            _databaseContext.Questions.Remove(dbEntity);
-            _databaseContext.SaveChanges();
-        }
-
-        public void Update(Question dto)
-        {
-            var dbEntity = _databaseContext.Questions.Find(dto.Id);
-
-            dbEntity.Content = dto.Content;
-            dbEntity.Title = dto.Title;
+            dbEntity.Content = entity.Content;
+            dbEntity.Title = entity.Title;
+            dbEntity.RankPoint = entity.RankPoint;
+            dbEntity.Votes = entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList();
             dbEntity.LastModificationDate = DateTime.Now;
 
             dbEntity.Tags.Clear();
 
-            AddQuestionTags(dto.Tags, dbEntity);
+            AddQuestionTags(entity.Tags, dbEntity);
 
             _databaseContext.SaveChanges();
 
-            _questionSearchEngineService.AddToIndex(new Question(dbEntity));
-        }
-
-        public IEnumerable<Question> GetFromIndex(string query)
-        {
-            return _questionSearchEngineService.GetFiltered(query);
+            _searchEngineService.Update(new Question(dbEntity));
         }
 
         private void AddQuestionTags(IList<DTO.Tag> tags, Database.Entities.Question entity)
