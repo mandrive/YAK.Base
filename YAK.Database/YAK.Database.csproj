@@ -59,9 +59,9 @@
     <Compile Include="Entities\Vote.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201506141841284_InitialMigration.cs" />
-    <Compile Include="Migrations\201506141841284_InitialMigration.Designer.cs">
-      <DependentUpon>201506141841284_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201508072129478_InitialMigration.cs" />
+    <Compile Include="Migrations\201508072129478_InitialMigration.Designer.cs">
+      <DependentUpon>201508072129478_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,8 +74,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506141841284_InitialMigration.resx">
-      <DependentUpon>201506141841284_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508072129478_InitialMigration.resx">
+      <DependentUpon>201508072129478_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

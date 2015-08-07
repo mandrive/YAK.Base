@@ -12,6 +12,9 @@ namespace Yak.DTO
         public DateTime LastModificationDate { get; set; }
         public IList<Vote> Votes { get; set; }
         public User Author { get; set; }
+        public int? QuestionId { get; set; }
+        public int? AnswerId { get; set; }
+
 
         public Comment()
         {

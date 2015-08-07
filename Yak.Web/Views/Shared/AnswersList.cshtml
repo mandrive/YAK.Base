@@ -1,0 +1,83 @@
+﻿@using Humanizer
+@using Yak.Web.Utils
+@model IList<Yak.Web.Models.AnswerViewModel>
+
+@foreach (var answer in Model)
+{
+
+    var blockVoteUpOption = answer.HasUserAlreadyVotedUp(User.DatabaseUser.Id);
+    var blockVoteDownOption = answer.HasUserAlreadyVotedDown(User.DatabaseUser.Id);
+
+    <div class="answer-details">
+        <div class="vote-box">
+            <div class="vote-up @if (blockVoteUpOption) { <text>vote-blocked</text> }" data-answerId="@answer.Answer.Id"><i class="fa fa-arrow-circle-o-up fa-3 size-3em"></i></div>
+            <div class="votes-count"><span style="font-size: 2em;">@answer.Answer.RankPoint</span></div>
+            <div class="vote-down @if (blockVoteDownOption) { <text>vote-blocked</text> }" data-answerId="@answer.Answer.Id"><i class="fa fa-arrow-circle-o-down fa-3 size-3em"></i></div>
+        </div>
+        <div class="answer-content">
+            <div class="answer-author-details pull-right col-md-2 text-center">
+                <img width="82" height="82" src="@Url.Content("~/Content/images/user128.png")" />
+                <div>@answer.Answer.LastModificationDate.Humanize(true, null, System.Globalization.CultureInfo.InvariantCulture)</div>
+                <div>by</div>
+                <div>@answer.Answer.Author.Username</div>
+            </div>
+            @Html.TransformToMarkdown(@answer.Answer.Content)
+            <div class="clearfix">
+                <div class="clearfix"></div>
+                <div class="answer-actions">
+                    <span class="label label-default add-comment">ADD COMMENT</span>
+                    @if (answer.Answer.Author.Id == User.DatabaseUser.Id)
+                    {
+                        @:•
+                        @Html.ActionLink("Edit", "Edit", new { id = answer.Answer.Id, controller = "Answer" })
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+<script type="text/javascript">
+    $(".answer-details .vote-box .vote-up").click(function () {
+        var self = $(this);
+        var answerId = $(this).attr("data-answerId");
+        var $votesCountElement = $(this).parent().find(".votes-count span");
+
+        if ($(this).hasClass("vote-blocked")) return;
+
+        $.ajax(
+            {
+                url: '@Url.Action("VoteUp", "Answer")',
+                data: { "answerId": answerId },
+                dataType: "json",
+                method: "post",
+                success: function (data) {
+                    $votesCountElement.text(data.rankPoint);
+                    self.addClass("vote-blocked");
+                    self.parent().find(".vote-down").removeClass("vote-blocked");
+                }
+            });
+    });
+
+    $(".answer-details .vote-box .vote-down").click(function () {
+        var self = $(this);
+        var answerId = $(this).attr("data-answerId");
+        var $votesCountElement = $(this).parent().find(".votes-count span");
+
+        if ($(this).hasClass("vote-blocked")) return;
+
+        $.ajax(
+            {
+                url: '@Url.Action("VoteDown", "Answer")',
+                data: { "answerId": answerId },
+                dataType: "json",
+                method: "post",
+                success: function (data) {
+                    $votesCountElement.text(data.rankPoint);
+                    self.addClass("vote-blocked");
+                    self.parent().find(".vote-up").removeClass("vote-blocked");
+                }
+            });
+    });
+</script>

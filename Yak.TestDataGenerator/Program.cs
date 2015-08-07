@@ -22,8 +22,8 @@ namespace Yak.TestDataGenerator
                     Title = Faker.Lorem.Sentence(5),
                     Content =  Faker.Lorem.Paragraph(10),
                     Author = userService.GetById(1),
-                    CreateDate = DateTime.Now,
-                    LastModificationDate = DateTime.Now
+                    CreateDate = DateTime.UtcNow,
+                    LastModificationDate = DateTime.UtcNow
                 });
                 Console.WriteLine("Adding question number " + i);
             }

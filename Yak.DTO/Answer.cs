@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Yak.DTO
 {
@@ -14,6 +15,7 @@ namespace Yak.DTO
         public User Author { get; set; }
         public IList<Comment> Comments { get; set; }
         public IList<Vote> Votes { get; set; }
+        public int QuestionId { get; set; }
 
         public Answer()
         {
@@ -28,6 +30,9 @@ namespace Yak.DTO
             CreateDate = answer.CreateDate;
             LastModificationDate = answer.LastModificationDate;
             Author = answer.Author != null ? new User(answer.Author) : null;
+            Comments = answer.Comments != null ? answer.Comments.Select(c => new Comment(c)).ToList() : new List<Comment>();
+            Votes = answer.Votes != null ? answer.Votes.Select(v => new Vote(v)).ToList() : new List<Vote>();
+            QuestionId = answer.Question.Id;
         }
     }
 }

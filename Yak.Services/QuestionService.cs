@@ -77,12 +77,14 @@ namespace Yak.Services
             dbEntity.Content = entity.Content;
             dbEntity.Title = entity.Title;
             dbEntity.RankPoint = entity.RankPoint;
-            dbEntity.Votes = entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList();
-            dbEntity.LastModificationDate = DateTime.Now;
+            dbEntity.Votes = entity.Votes != null ? entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList() : dbEntity.Votes;
+            dbEntity.LastModificationDate = DateTime.UtcNow;
 
-            dbEntity.Tags.Clear();
-
-            AddQuestionTags(entity.Tags, dbEntity);
+            if (entity.Tags != null)
+            {
+                dbEntity.Tags.Clear();
+                AddQuestionTags(entity.Tags, dbEntity);
+            }
 
             _databaseContext.SaveChanges();
 

@@ -26,6 +26,7 @@ namespace Yak.Database.Entities
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
+        public virtual Question Question { get; set; }
         public virtual User Author { get; set; }
     }
 }

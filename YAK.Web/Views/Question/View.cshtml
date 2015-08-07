@@ -1,14 +1,18 @@
-﻿@using Humanizer
-@model Yak.Web.Models.QuestionViewModel
+﻿@model QuestionViewModel
+
+@using Humanizer
+@using Yak.Web.Models
+@using Yak.Web.Utils
 
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@{ 
+@{
     var blockVoteUpOption = Model.HasUserAlreadyVotedUp(User.DatabaseUser.Id);
     var blockVoteDownOption = Model.HasUserAlreadyVotedDown(User.DatabaseUser.Id);
+    var alreadyAnswered = Model.HasUserAlreadyAnsweredQuestion(User.DatabaseUser.Id);
 }
 <div class="col-lg-12 col-md-12 col-xs-12">
     <div class="question-details">
@@ -23,11 +27,11 @@
         <div class="question-content">
             <div class="question-author-details pull-right col-md-2 text-center">
                 <img width="82" height="82" src="@Url.Content("~/Content/images/user128.png")" />
-                <div>@Model.Question.CreateDate.Humanize()</div>
+                <div>@Model.Question.LastModificationDate.Humanize(true, DateTime.UtcNow, System.Globalization.CultureInfo.InvariantCulture)</div>
                 <div>by</div>
                 <div>@Model.Question.AuthorName</div>
             </div>
-            @Html.Raw(@Model.Question.Content)
+            @Html.TransformToMarkdown(@Model.Question.Content)
             <div class="clearfix">
                 <div class="clearfix question-tags">
                     @foreach (var item in Model.Question.Tags)
@@ -36,16 +40,34 @@
                     }
                 </div>
                 <div class="question-actions">
-                    <span class="label label-default add-comment">ADD COMMENT</span> • 
-                    <span class="label label-success add-answer">ADD ANSWER</span>
+                    <span class="label label-default add-comment">ADD COMMENT</span>
                     @if (Model.Question.Author.Id == User.DatabaseUser.Id)
                     {
                         @:•
                         @Html.ActionLink("Edit", "Edit", new { id = Model.Question.Id })
                     }
                 </div>
+                <div class="question-comments">
+                    @Html.Partial("CommentsList", Model.CommentViewModels)
+                    <div class="comment-editor hidden">
+                        @using (Html.BeginForm("AddComment", "Comment", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("QuestionId", Model.Question.Id)
+                            @Html.TextArea("Content", new { @class = "form-control" })
+                            <input type="submit" value="add comment" />
+                        }
+                    </div>
+                </div>
+
             </div>
         </div>
+    </div>
+    <hr/>
+    @Html.Partial("AnswersList", Model.AnswersViewModels)
+    <button class="@if (!alreadyAnswered) { <text>hidden</text> } btn btn-default toggleAnswerEditor">Add new answer</button>
+    <div class="@if (alreadyAnswered) { <text>hidden</text> } answer-editor-container">
+        @Html.Partial("Answer", new AnswerViewModel(Model.Question.Id, User.DatabaseUser.Id))
     </div>
 </div>
 
@@ -53,7 +75,7 @@
     $(".question-details .vote-box .vote-up").click(function () {
         var self = $(this);
         var questionId = $(this).attr("data-questionId");
-        var $votesCountElement = $(".votes-count span");
+        var $votesCountElement = $(this).parent().find(".votes-count span");
 
         if ($(this).hasClass("vote-blocked")) return;
 
@@ -63,11 +85,10 @@
                 data: { "questionId": questionId },
                 dataType: "json",
                 method: "post",
-                success: function(data)
-                {
+                success: function (data) {
                     $votesCountElement.text(data.rankPoint);
                     self.addClass("vote-blocked");
-                    $(".question-details .vote-box .vote-down").removeClass("vote-blocked");
+                    self.parent().find(".vote-down").removeClass("vote-blocked");
                 }
             });
     });
@@ -75,7 +96,7 @@
     $(".question-details .vote-box .vote-down").click(function () {
         var self = $(this);
         var questionId = $(this).attr("data-questionId");
-        var $votesCountElement = $(".votes-count span");
+        var $votesCountElement = $(this).parent().find(".votes-count span");
 
         if ($(this).hasClass("vote-blocked")) return;
 
@@ -88,9 +109,18 @@
                 success: function (data) {
                     $votesCountElement.text(data.rankPoint);
                     self.addClass("vote-blocked");
-                    $(".question-details .vote-box .vote-up").removeClass("vote-blocked");
+                    self.parent().find(".vote-up").removeClass("vote-blocked");
                 }
             });
+    });
+
+    $(".toggleAnswerEditor").click(function () {
+        $(this).removeClass("show").addClass("hidden");
+        $(".answer-editor-container").removeClass("hidden");
+    });
+
+    $(".question-actions > span.add-comment").click(function () {
+        $(".question-comments .comment-editor").removeClass("hidden");
     });
 
 </script>

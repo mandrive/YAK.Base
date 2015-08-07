@@ -8,7 +8,7 @@
     {
         <div class="question-row">
             <div class="box unanswered">
-                <div class="count-value">0</div>
+                <div class="count-value">@question.Answers.Count</div>
                 <div class="count-label">answers</div>
             </div>
             <div class="votes-count box">
@@ -28,7 +28,7 @@
                             }
                         }
                     </span>
-                    <span class="author-link">Written @question.CreateDate.Humanize() by @(!string.IsNullOrEmpty(question.AuthorName) ? question.AuthorName : "Anonymous")</span>
+                    <span class="author-link">Written @question.CreateDate.Humanize(true, null, System.Globalization.CultureInfo.InvariantCulture) by @(!string.IsNullOrEmpty(question.AuthorName) ? question.AuthorName : "Anonymous")</span>
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@ namespace Yak.Web.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public int RankPoint { get; set; }
 
         public string QuestionTags { get; set; }
 
@@ -25,6 +26,7 @@ namespace Yak.Web.Models
             Title = question.Title;
             Content = question.Content;
             QuestionTags = string.Join(",", question.Tags.Select(t => t.Name));
+            RankPoint = question.RankPoint;
         }
 
         public Question ToDto()
@@ -34,9 +36,10 @@ namespace Yak.Web.Models
                 Id = Id,
                 Title = Title,
                 Content = Content,
+                RankPoint = RankPoint,
                 Tags = QuestionTags != null ? QuestionTags.Split(',').Select(part => new Tag(part)).ToList() : null,
-                CreateDate = DateTime.Now,
-                LastModificationDate = DateTime.Now
+                CreateDate = DateTime.UtcNow,
+                LastModificationDate = DateTime.UtcNow
             };
         }
     }

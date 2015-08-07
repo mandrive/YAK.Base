@@ -140,6 +140,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BaseUtils\BaseController.cs" />
     <Compile Include="BaseUtils\BaseViewPage.cs" />
+    <Compile Include="Controllers\AnswerController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\StackController.cs" />
@@ -147,12 +149,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ICustomPrincipal.cs" />
+    <Compile Include="Models\AnswerForm.cs" />
+    <Compile Include="Models\AnswerViewModel.cs" />
+    <Compile Include="Models\CommentForm.cs" />
+    <Compile Include="Models\CommentViewModel.cs" />
     <Compile Include="Models\CustomPrincipal.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\QuestionForm.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\HtmlRequestHelper.cs" />
+    <Compile Include="Utils\MarkdownHelper.cs" />
     <Compile Include="Utils\UsernameExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -274,6 +281,7 @@
     <Content Include="Scripts\mdd_styles.css" />
     <Content Include="Content\images\mdd_toolbar.png" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Answer\NewAnswer.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\Question\NewQuestion.js" />
     <Content Include="Scripts\respond.js" />
@@ -304,6 +312,12 @@
     <Content Include="Views\Question\QuestionForm.cshtml" />
     <Content Include="Views\Question\View.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Shared\Answer.cshtml" />
+    <Content Include="Views\Shared\AnswersList.cshtml" />
+    <Content Include="Views\Answer\AnswerForm.cshtml" />
+    <Content Include="Views\Question\ViewQuestionContent.cshtml" />
+    <Content Include="Views\Shared\CommentsList.cshtml" />
+    <Content Include="Views\Comment\CommentForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

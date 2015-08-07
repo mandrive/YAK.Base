@@ -27,8 +27,9 @@ namespace Yak.Services
                 RankPoint = entity.RankPoint,
                 IsCorrect = entity.IsCorrect,
                 Author = _databaseContext.Users.Find(entity.Author.Id),
-                Comments = entity.Comments.Select(c => _databaseContext.Comments.Find(c.Id)).ToList(),
-                Votes = entity.Votes.Select(v=> _databaseContext.Votes.Find(v.Id)).ToList()
+                Comments = entity.Comments != null ? entity.Comments.Select(c => _databaseContext.Comments.Find(c.Id)).ToList() : new List<Database.Entities.Comment>(),
+                Votes = entity.Votes != null ? entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList() : new List<Database.Entities.Vote>(),
+                Question = _databaseContext.Questions.Find(entity.QuestionId)
             };
 
             _databaseContext.Answers.Add(dbEntity);
@@ -63,7 +64,18 @@ namespace Yak.Services
 
         public void Update(Answer entity)
         {
-            throw new NotImplementedException();
+            var dbEntity = _databaseContext.Answers.Find(entity.Id);
+
+            dbEntity.Content = entity.Content;
+            dbEntity.RankPoint = entity.RankPoint;
+            dbEntity.Votes = entity.Votes != null ? entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList() : new List<Database.Entities.Vote>();
+            dbEntity.LastModificationDate = DateTime.UtcNow;
+            dbEntity.CreateDate = entity.CreateDate;
+            dbEntity.Author = entity.Author != null ? _databaseContext.Users.Find(entity.Author.Id) : dbEntity.Author;
+            dbEntity.Comments = entity.Comments != null ? entity.Comments.Select(c => _databaseContext.Comments.Find(c.Id)).ToList() : new List<Database.Entities.Comment>();
+            dbEntity.IsCorrect = entity.IsCorrect;
+
+            _databaseContext.SaveChanges();
         }
     }
 }

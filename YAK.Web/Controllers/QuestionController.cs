@@ -30,10 +30,17 @@ namespace Yak.Web.Controllers
         public ActionResult View(int id)
         {
             var question = _questionService.GetById(id);
-            question.Content = new MarkdownDeep.Markdown().Transform(question.Content);
             var questionViewModel = new QuestionViewModel(question);
 
             return View(questionViewModel);
+        }
+
+        public ActionResult ViewQuestionContent(int id)
+        {
+            var question = _questionService.GetById(id);
+            var questionViewModel = new QuestionViewModel(question);
+
+            return PartialView(questionViewModel);
         }
 
         public ActionResult FilterQuestions(string query)
@@ -65,7 +72,6 @@ namespace Yak.Web.Controllers
             _voteService.Add(newVote);
 
             var question = _questionService.GetById(questionId);
-            question.RankPoint++;
             question.Votes.Add(newVote);
 
             var voteDown = question.Votes.SingleOrDefault(v => v.User.Id == User.DatabaseUser.Id && !v.PointValue);
@@ -74,8 +80,12 @@ namespace Yak.Web.Controllers
             {
                 question.Votes.Remove(voteDown);
                 _voteService.Delete(voteDown);
-                question.RankPoint++;
             }
+
+            var allVotesUp = question.Votes.Count(v => v.PointValue);
+            var allVotesDown = question.Votes.Count(v => !v.PointValue);
+
+            question.RankPoint = allVotesUp - allVotesDown;
 
             _questionService.Update(question);
 
@@ -93,7 +103,6 @@ namespace Yak.Web.Controllers
             _voteService.Add(newVote);
 
             var question = _questionService.GetById(questionId);
-            question.RankPoint--;
             question.Votes.Add(newVote);
 
             var voteUp = question.Votes.SingleOrDefault(v => v.User.Id == User.DatabaseUser.Id && v.PointValue);
@@ -102,8 +111,12 @@ namespace Yak.Web.Controllers
             {
                 question.Votes.Remove(voteUp);
                 _voteService.Delete(voteUp);
-                question.RankPoint--;
             }
+
+            var allVotesUp = question.Votes.Count(v => v.PointValue);
+            var allVotesDown = question.Votes.Count(v => !v.PointValue);
+
+            question.RankPoint = allVotesUp - allVotesDown;
 
             _questionService.Update(question);
 
@@ -120,7 +133,7 @@ namespace Yak.Web.Controllers
         public ActionResult New(QuestionForm questionForm)
         {
             var dto = questionForm.ToDto();
-            dto.Author = _userService.Filter(u => u.Username == UsernameExtractor.ExtractUsername(User.Identity.Name)).SingleOrDefault();
+            dto.Author = User.DatabaseUser;
             _questionService.Add(dto);
 
             return RedirectToAction("View", new { id = dto.Id });

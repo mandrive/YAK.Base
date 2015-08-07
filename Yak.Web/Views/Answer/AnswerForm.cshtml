@@ -1,12 +1,14 @@
-﻿@model Yak.Web.Models.QuestionForm
+﻿@model Yak.Web.Models.AnswerForm
 
 @{
-    ViewBag.Title = "QuestionForm";
+    ViewBag.Title = "AnswerForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="row">
     <div class="well" style="margin-top: 20px; text-align:center; padding: 1px;">
-        <h1>Ask a question</h1>
+        <h4>Question:</h4>
+        @Html.Action("ViewQuestionContent", new { controller = "Question", id = Model.QuestionId })
     </div>
 </div>
 <hr class="dl-horizontal" />
@@ -15,13 +17,8 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.RankPoint)
+    @Html.HiddenFor(m => m.QuestionId)
     <div class="row">
-        <div class="input-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "input-group-addon" })
-            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-        </div>
-        <br />
         <div>
             <div class="mdd_toolbar"></div>
             @Html.TextAreaFor(model => model.Content, new { @class = "mdd_editor form-control" })
@@ -32,27 +29,15 @@
                 <div class="mdd_preview"></div>
             </div>
         </div>
-        <hr />
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4>Tags</h4>
-            </div>
-            <div class="panel-body">
-                <input type="text" name="tags" placeholder="Tags" class="tm-input form-control" />
-            </div>
-        </div>
         <hr class="dl-horizontal" />
         <input type="submit" value='@((Model != null && Model.Id > 0) ? "Update" : "Create")' class="btn btn-success" style="width: 100%;" />
     </div>
 }
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/MarkdownDeepLib.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Question/NewQuestion.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Answer/NewAnswer.js")"></script>
 <script type="text/javascript">
     PrepareMarkdownEditor();
-    PrepareTagsManager();
-    @if (Model != null && Model.QuestionTags != null)
-    {
-        @:PushTagsToTagsManager('@Model.QuestionTags');
-    }
 </script>
+
+

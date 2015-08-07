@@ -22,11 +22,13 @@ namespace Yak.Services
             {
                 Id = entity.Id,
                 Content = entity.Content,
-                CreateDate = entity.CreateDate,
-                LastModificationDate = entity.CreateDate,
+                CreateDate = DateTime.UtcNow,
+                LastModificationDate = DateTime.UtcNow,
                 RankPoint = entity.RankPoint,
                 Author = _databaseContext.Users.Find(entity.Author.Id),
-                Votes = entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList(),
+                Votes = entity.Votes != null ? entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList() : new List<Database.Entities.Vote>(),
+                Question = entity.QuestionId.HasValue ? _databaseContext.Questions.Find(entity.QuestionId.Value) : null,
+                Answer = entity.AnswerId.HasValue ? _databaseContext.Answers.Find(entity.AnswerId.Value) : null,
             };
 
             _databaseContext.Comments.Add(dbEntity);
@@ -61,7 +63,18 @@ namespace Yak.Services
 
         public void Update(Comment entity)
         {
-            throw new NotImplementedException();
+            var dbComment = _databaseContext.Comments.Find(entity.Id);
+
+            dbComment.Content = entity.Content;
+            dbComment.CreateDate = entity.CreateDate;
+            dbComment.LastModificationDate = entity.LastModificationDate;
+            dbComment.RankPoint = entity.RankPoint;
+            dbComment.Votes = entity.Votes != null ? entity.Votes.Select(v => _databaseContext.Votes.Find(v.Id)).ToList() : new List<Database.Entities.Vote>();
+            dbComment.Author = entity.Author != null ? _databaseContext.Users.Find(entity.Author.Id) : dbComment.Author;
+            dbComment.Answer = entity.AnswerId.HasValue ? _databaseContext.Answers.Find(entity.AnswerId.Value) : null;
+            dbComment.Question = entity.QuestionId.HasValue ? _databaseContext.Questions.Find(entity.QuestionId.Value) : null;
+
+            _databaseContext.SaveChanges();
         }
     }
 }

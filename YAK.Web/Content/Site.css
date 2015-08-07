@@ -55,7 +55,7 @@ blockquote {
     background-color: Silver;
 }
 
-#Content {
+#Content, .asnwer-editor-content, .question-editor-content {
     min-height: 300px;
     width: 100%;
     background-color: Gainsboro;
@@ -228,7 +228,7 @@ blockquote {
         border-bottom: 1px solid #d3d3d3;
     }
 
-    .question-details .vote-box {
+    .vote-box {
         float: left;
         width: 60px;
         text-align: center;
@@ -236,12 +236,12 @@ blockquote {
         overflow: auto;
     }
 
-    .question-details .vote-box .vote-up, .question-details .vote-box .vote-down {
+    .vote-box .vote-up, .vote-box .vote-down{
         cursor: pointer;
     }
 
-    .question-details .vote-box .vote-down.vote-blocked,
-    .question-details .vote-box .vote-up.vote-blocked {
+    .vote-box .vote-down.vote-blocked,
+    .vote-box .vote-up.vote-blocked {
         cursor: default;
         color: gray;
     }
@@ -250,7 +250,8 @@ blockquote {
         margin-bottom: 0.5em;
     }
 
-    .question-details .question-author-details {
+    .question-details .question-author-details,
+    .answer-details .answer-author-details {
         padding: 10px 0px 10px 0px;
         background-color: #f5f5f5;
         font-size: small;
@@ -262,7 +263,8 @@ blockquote {
         height: 100%;
     }
 
-    .question-details .question-content {
+    .question-details .question-content,
+    .answer-details .answer-content {
         overflow: auto;
         min-height: 9em;
     }
@@ -270,3 +272,13 @@ blockquote {
 i.size-3em {
     font-size: 3em;
 }
+
+i.size-1em {
+    font-size: 1em;
+}
+
+span.add-comment
+{
+    cursor: pointer;
+}
+

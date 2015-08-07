@@ -29,8 +29,8 @@ namespace Yak.Database.Migrations
                     Id = 1,
                     Title = "asd",
                     Content = "asd",
-                    LastModificationDate = DateTime.Now,
-                    CreateDate = DateTime.Now,
+                    LastModificationDate = DateTime.UtcNow,
+                    CreateDate = DateTime.UtcNow,
                     Author = firstUser,
                     RankPoint = 1,
                     Votes = new List<Vote>()

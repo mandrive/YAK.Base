@@ -1,0 +1,25 @@
+﻿@model Yak.Web.Models.AnswerViewModel
+@using (Html.BeginForm("PostAnswer", "Answer"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.QuestionId)
+    <h2>Your Answer</h2>
+    <div>
+        <div class="mdd_toolbar"></div>
+        @Html.TextAreaFor(model => model.Answer.Content, new { @class = "mdd_editor form-control asnwer-editor-content" })
+        <br />
+        <input type="button" class="btn btn-default toggle-preview" value="Show/Hide preview" />
+        <div class="markup-preview-box" style="display: none;">
+            <h4>Preview:</h4>
+            <div class="mdd_preview"></div>
+        </div>
+        <hr/>
+        <input type="submit" value="Post your Answer" class="btn btn-success" style="width: 100%;" />
+    </div>
+}
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/MarkdownDeepLib.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Answer/NewAnswer.js")"></script>
+<script type="text/javascript">
+    PrepareMarkdownEditor();
+</script>

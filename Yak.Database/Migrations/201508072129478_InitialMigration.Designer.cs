@@ -13,7 +13,7 @@ namespace Yak.Database.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201506141841284_InitialMigration"; }
+            get { return "201508072129478_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source

@@ -23,6 +23,8 @@ namespace Yak.Database.Entities
         public DateTime LastModificationDate { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
+        public virtual Question Question { get; set; }
+        public virtual Answer Answer { get; set; }
         public virtual User Author { get; set; }
     }
 }

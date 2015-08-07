@@ -1,0 +1,21 @@
+﻿@model Yak.Web.Models.CommentForm
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.QuestionId)
+    @Html.HiddenFor(m => m.AnswerId)
+    @Html.HiddenFor(m => m.RankPoint)
+    <div class="row">
+        <div>
+            <div class="mdd_toolbar"></div>
+            @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+            <br />
+        </div>
+        <hr class="dl-horizontal" />
+        <input type="submit" value='@((Model != null && Model.Id > 0) ? "Update" : "Create")' class="btn btn-success" style="width: 100%;" />
+    </div>
+}
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Comment/NewComment.js")"></script>
