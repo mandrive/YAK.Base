@@ -58,7 +58,7 @@ blockquote {
 #Content, .asnwer-editor-content, .question-editor-content {
     min-height: 300px;
     width: 100%;
-    background-color: Gainsboro;
+    background-color: #f2f2f2;
     border: 1px solid DarkGray;
 }
 
@@ -228,46 +228,62 @@ blockquote {
         border-bottom: 1px solid #d3d3d3;
     }
 
-    .vote-box {
-        float: left;
-        width: 60px;
-        text-align: center;
-        vertical-align: middle;
-        overflow: auto;
-    }
+.vote-box {
+    float: left;
+    width: 60px;
+    text-align: center;
+    vertical-align: middle;
+    overflow: auto;
+}
 
-    .vote-box .vote-up, .vote-box .vote-down{
-        cursor: pointer;
-    }
+.vote-box-small {
+    float: left;
+    width: 30px;
+    text-align: center;
+    vertical-align: middle;
+    overflow: auto;
+}
+
+.vote-box .vote-up, .vote-box .vote-down,
+.vote-box-small .vote-up, .vote-box-small .vote-down {
+    cursor: pointer;
+}
 
     .vote-box .vote-down.vote-blocked,
-    .vote-box .vote-up.vote-blocked {
+    .vote-box .vote-up.vote-blocked,
+    .vote-box-small .vote-down.vote-blocked,
+    .vote-box-small .vote-up.vote-blocked,
+    .answer-correct.vote-blocked {
         cursor: default;
-        color: gray;
+        color: #efefef;
     }
 
-    .question-details .question-tags {
-        margin-bottom: 0.5em;
+    .answer-correct.correct {
+        color: green;
     }
 
-    .question-details .question-author-details,
-    .answer-details .answer-author-details {
-        padding: 10px 0px 10px 0px;
-        background-color: #f5f5f5;
-        font-size: small;
-        margin-left: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        border: 1px solid #d3d3d3;
-        float: right;
-        height: 100%;
-    }
+.question-details .question-tags {
+    margin-bottom: 0.5em;
+}
 
-    .question-details .question-content,
-    .answer-details .answer-content {
-        overflow: auto;
-        min-height: 9em;
-    }
+.question-details .question-author-details,
+.answer-details .answer-author-details {
+    padding: 10px 0px 10px 0px;
+    background-color: #f5f5f5;
+    font-size: small;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border: 1px solid #d3d3d3;
+    float: right;
+    height: 100%;
+}
+
+.question-details .question-content,
+.answer-details .answer-content {
+    overflow: auto;
+    min-height: 9em;
+}
 
 i.size-3em {
     font-size: 3em;
@@ -277,8 +293,22 @@ i.size-1em {
     font-size: 1em;
 }
 
-span.add-comment
-{
+span.add-comment {
     cursor: pointer;
 }
 
+.answer-correct
+{
+    cursor: pointer;
+    color:DarkGray;
+}
+
+.answer-correct:hover
+{
+    color:forestgreen;
+}
+
+.answer-correct.accepted
+{
+    color: lawngreen;
+}

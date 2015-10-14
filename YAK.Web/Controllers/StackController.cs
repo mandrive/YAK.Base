@@ -13,7 +13,11 @@ namespace Yak.Web.Controllers
         private readonly IService<Vote> _voteService;
         private readonly IService<Comment> _commentService;
 
-        public StackController(IService<Question> questionService, IService<Answer> answerService, IService<Comment> commentService, IService<Vote> voteService)
+        public StackController(
+            IService<Question> questionService,
+            IService<Answer> answerService,
+            IService<Comment> commentService,
+            IService<Vote> voteService)
         {
             _questionService = questionService;
             _answerService = answerService;

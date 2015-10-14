@@ -34,8 +34,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Elasticsearch.Net.1.4.3\lib\net45\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="LightInject">
-      <HintPath>..\packages\LightInject.3.0.2.6\lib\net45\LightInject.dll</HintPath>
+    <Reference Include="LightInject, Version=3.0.2.7, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.3.0.2.7\lib\net45\LightInject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Nest">
       <HintPath>..\packages\NEST.1.4.3\lib\net45\Nest.dll</HintPath>
@@ -44,6 +49,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -56,11 +62,16 @@
     <Compile Include="Interfaces\ISearchEngineService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionSearchEngineService.cs" />
+    <Compile Include="Utils\ElasticConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Yak.Common\Yak.Common.csproj">
+      <Project>{cfefb9c8-c784-432a-89d3-74ab2ba8e175}</Project>
+      <Name>Yak.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Yak.Database\Yak.Database.csproj">
       <Project>{9b1a2f83-5909-4303-8480-1c091294ada8}</Project>
       <Name>Yak.Database</Name>

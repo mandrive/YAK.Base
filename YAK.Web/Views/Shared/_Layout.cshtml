@@ -31,7 +31,7 @@
                     <li>@Html.ActionLink("Rebuild index", "RebuildIndexes", "Question")</li>
                 </ul>
                 <ul class="nav nav-pills navbar-right navbar-nav">
-                    <li><a href="#">Hello @UsernameExtractor.ExtractUsername(Context.User.Identity.Name) !</a></li>
+                    <li><a href="#">Hello @User.DatabaseUser.Username !</a></li>
                 </ul>
             </div>
         </div>

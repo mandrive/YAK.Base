@@ -5,6 +5,8 @@ using Elasticsearch.Net;
 using Nest;
 using Yak.DTO;
 using Yak.SearchEngine.Interfaces;
+using System.Configuration;
+using Yak.SearchEngine.Utils;
 
 namespace Yak.SearchEngine
 {
@@ -14,8 +16,16 @@ namespace Yak.SearchEngine
 
         public QuestionSearchEngineService()
         {
-            var setting = new ConnectionSettings(new Uri("http://localhost:9200"), "yakbase");
-            _elasticClient = new ElasticClient(setting);
+            try
+            {
+                var config = (ElasticConfiguration)ConfigurationManager.GetSection("elasticServer");
+                var setting = new ConnectionSettings(new Uri(config.ElasticServer.ServerAddress), config.ElasticServer.IndexName);
+                _elasticClient = new ElasticClient(setting);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void AddToIndex(Question indexObject)

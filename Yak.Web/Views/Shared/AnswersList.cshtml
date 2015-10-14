@@ -4,15 +4,17 @@
 
 @foreach (var answer in Model)
 {
-
     var blockVoteUpOption = answer.HasUserAlreadyVotedUp(User.DatabaseUser.Id);
     var blockVoteDownOption = answer.HasUserAlreadyVotedDown(User.DatabaseUser.Id);
+    var isAuthorOfQuestion = (bool)Html.ViewData["IsAuthorOfQuestion"];
+    var isAnyOtherAnswerAccepted = Model.Any(a => a.Answer.IsCorrect && a.Answer.Id != answer.Answer.Id);
 
     <div class="answer-details">
         <div class="vote-box">
-            <div class="vote-up @if (blockVoteUpOption) { <text>vote-blocked</text> }" data-answerId="@answer.Answer.Id"><i class="fa fa-arrow-circle-o-up fa-3 size-3em"></i></div>
+            <div class="vote-up @if (blockVoteUpOption) { <text>vote-blocked</text> }" data-answerId="@answer.Answer.Id"><i class="fa fa-angle-up fa-3 size-3em"></i></div>
             <div class="votes-count"><span style="font-size: 2em;">@answer.Answer.RankPoint</span></div>
-            <div class="vote-down @if (blockVoteDownOption) { <text>vote-blocked</text> }" data-answerId="@answer.Answer.Id"><i class="fa fa-arrow-circle-o-down fa-3 size-3em"></i></div>
+            <div class="vote-down @if (blockVoteDownOption) { <text>vote-blocked</text> }" data-answerId="@answer.Answer.Id"><i class="fa fa-angle-down fa-3 size-3em"></i></div>
+            <div class="answer-correct @if (!isAuthorOfQuestion || isAnyOtherAnswerAccepted) { <text>hidden</text> } @if (@answer.Answer.IsCorrect) { <text>accepted</text> } else { <text>not-accepted</text> } " data-answerId="@answer.Answer.Id"><i class="fa fa-check fa-3 size-3em"></i></div>
         </div>
         <div class="answer-content">
             <div class="answer-author-details pull-right col-md-2 text-center">
@@ -31,6 +33,18 @@
                         @:•
                         @Html.ActionLink("Edit", "Edit", new { id = answer.Answer.Id, controller = "Answer" })
                     }
+                </div>
+                <div class="answer-comments" style="margin-top: 5px;">
+                    @Html.Partial("CommentsList", answer.CommentViewModels)
+                    <div class="comment-editor hidden" style="margin-top: 10px;">
+                        @using (Html.BeginForm("AddComment", "Comment", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("AnswerId", answer.Answer.Id)
+                            @Html.TextArea("Content", new { @class = "form-control", @name = "Content", @id = "CommentContent", @style = "margin-bottom: 5px" })
+                            <input type="submit" value="add comment" class="btn btn-success" />
+                        }
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,5 +93,35 @@
                     self.parent().find(".vote-up").removeClass("vote-blocked");
                 }
             });
+    });
+
+    $(".answer-actions > span.add-comment").click(function () {
+       $(this).parent().parent().find(".answer-comments .comment-editor").removeClass("hidden");
+    });
+
+    $(".answer-correct").click(function () {
+        var self = $(this);
+        var answerId = $(this).attr("data-answerId");
+        var isAlreadyAccepted = $(this).hasClass("accepted");
+
+        if (self.hasClass("hidden")) { return; }
+
+        $.ajax(
+        {
+            url: '@Url.Action("MarkAnswer", "Answer")',
+            data: { "answerId": answerId, "isCorrect": !isAlreadyAccepted },
+            dataType: "json",
+            method: "post",
+            success: function (data) {
+                if (isAlreadyAccepted)
+                {
+                    self.removeClass("accepted");
+                }
+                else 
+                {
+                    self.addClass("accepted");
+                }
+            }
+        });
     });
 </script>

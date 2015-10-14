@@ -14,7 +14,10 @@ namespace Yak.Web.Controllers
         private readonly IService<Question> _questionService;
         private readonly IService<Vote> _voteService;
 
-        public AnswerController(IService<Answer> answerService, IService<Question> questionService, IService<Vote> voteService)
+        public AnswerController(
+            IService<Answer> answerService,
+            IService<Question> questionService,
+            IService<Vote> voteService)
         {
             _answerService = answerService;
             _questionService = questionService;
@@ -117,6 +120,22 @@ namespace Yak.Web.Controllers
             _answerService.Update(answer);
 
             return Json(new { rankPoint = answer.RankPoint });
+        }
+
+        public JsonResult MarkAnswer(int answerId, bool isCorrect)
+        {
+            var answer = _answerService.GetById(answerId);
+
+            if (answer.Author.Id != User.DatabaseUser.Id)
+            {
+                throw new Exception("Unauthorized user tries to accept others user answer!");
+            }
+
+            answer.IsCorrect = isCorrect;
+
+            _answerService.Update(answer);
+
+            return Json(new { Result = true });
         }
     }
 }

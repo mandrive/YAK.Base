@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Yak.DTO;
 using Yak.Services.Interfaces;
@@ -14,11 +11,16 @@ namespace Yak.Web.Controllers
     {
         private readonly IService<Comment> _commentService;
         private readonly IService<Answer> _answerService;
+        private readonly IService<Vote> _voteService;
 
-        public CommentController(IService<Comment> commentService, IService<Answer> answerService)
+        public CommentController(
+            IService<Comment> commentService,
+            IService<Answer> answerService,
+            IService<Vote> voteService)
         {
             _commentService = commentService;
             _answerService = answerService;
+            _voteService = voteService;
         }
 
         [HttpPost]
@@ -53,6 +55,68 @@ namespace Yak.Web.Controllers
             var questionId = dto.QuestionId.HasValue ? dto.QuestionId.Value : _answerService.GetById(commentForm.AnswerId.Value).QuestionId;
 
             return RedirectToAction("View", new { id = questionId, controller = "Question" });
+        }
+
+        public JsonResult VoteUp(int commentId)
+        {
+            var newVote = new Vote
+            {
+                PointValue = true,
+                User = User.DatabaseUser
+            };
+
+            _voteService.Add(newVote);
+
+            var comment = _commentService.GetById(commentId);
+            comment.Votes.Add(newVote);
+
+            var voteDown = comment.Votes.SingleOrDefault(v => v.User.Id == User.DatabaseUser.Id && !v.PointValue);
+
+            if (voteDown != null)
+            {
+                comment.Votes.Remove(voteDown);
+                _voteService.Delete(voteDown);
+            }
+
+            var allVotesUp = comment.Votes.Count(v => v.PointValue);
+            var allVotesDown = comment.Votes.Count(v => !v.PointValue);
+
+            comment.RankPoint = allVotesUp - allVotesDown;
+
+            _commentService.Update(comment);
+
+            return Json(new { rankPoint = comment.RankPoint });
+        }
+
+        public JsonResult VoteDown(int commentId)
+        {
+            var newVote = new Vote
+            {
+                PointValue = false,
+                User = User.DatabaseUser
+            };
+
+            _voteService.Add(newVote);
+
+            var comment = _commentService.GetById(commentId);
+            comment.Votes.Add(newVote);
+
+            var voteUp = comment.Votes.SingleOrDefault(v => v.User.Id == User.DatabaseUser.Id && v.PointValue);
+
+            if (voteUp != null)
+            {
+                comment.Votes.Remove(voteUp);
+                _voteService.Delete(voteUp);
+            }
+
+            var allVotesUp = comment.Votes.Count(v => v.PointValue);
+            var allVotesDown = comment.Votes.Count(v => !v.PointValue);
+
+            comment.RankPoint = allVotesUp - allVotesDown;
+
+            _commentService.Update(comment);
+
+            return Json(new { rankPoint = comment.RankPoint });
         }
     }
 }

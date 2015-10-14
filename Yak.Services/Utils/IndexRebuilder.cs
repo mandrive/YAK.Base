@@ -17,7 +17,7 @@ namespace Yak.Services.Utils
 
         public void RebuildQuestionsIndex()
         {
-            foreach (var question in _databaseContext.Questions.Include("Author").Include("Tags"))
+            foreach (var question in _databaseContext.Questions.Include("Author").Include("Tags").Include("Answers").Include("Comments").Include("Votes"))
             {
                 var dtoQuestion = new Question(question);
                 _questionSearchEngineService.AddToIndex(dtoQuestion);

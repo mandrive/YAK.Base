@@ -13,6 +13,8 @@
     var blockVoteUpOption = Model.HasUserAlreadyVotedUp(User.DatabaseUser.Id);
     var blockVoteDownOption = Model.HasUserAlreadyVotedDown(User.DatabaseUser.Id);
     var alreadyAnswered = Model.HasUserAlreadyAnsweredQuestion(User.DatabaseUser.Id);
+    var answerViewData = new ViewDataDictionary();
+    answerViewData.Add("IsAuthorOfQuestion", Model.Question.Author.Id == User.DatabaseUser.Id);
 }
 <div class="col-lg-12 col-md-12 col-xs-12">
     <div class="question-details">
@@ -20,9 +22,9 @@
             Question: @Model.Question.Title
         </div>
         <div class="vote-box">
-            <div class="vote-up @if (blockVoteUpOption) { <text>vote-blocked</text> }" data-questionId="@Model.Question.Id"><i class="fa fa-arrow-circle-o-up fa-3 size-3em"></i></div>
+            <div class="vote-up @if (blockVoteUpOption) { <text>vote-blocked</text> }" data-questionId="@Model.Question.Id"><i class="fa fa-angle-up fa-3 size-3em"></i></div>
             <div class="votes-count"><span style="font-size: 2em;">@Model.Question.RankPoint</span></div>
-            <div class="vote-down @if (blockVoteDownOption) { <text>vote-blocked</text> }" data-questionId="@Model.Question.Id"><i class="fa fa-arrow-circle-o-down fa-3 size-3em"></i></div>
+            <div class="vote-down @if (blockVoteDownOption) { <text>vote-blocked</text> }" data-questionId="@Model.Question.Id"><i class="fa fa-angle-down fa-3 size-3em"></i></div>
         </div>
         <div class="question-content">
             <div class="question-author-details pull-right col-md-2 text-center">
@@ -47,15 +49,16 @@
                         @Html.ActionLink("Edit", "Edit", new { id = Model.Question.Id })
                     }
                 </div>
-                <div class="question-comments">
+                <div class="question-comments" style="margin-top: 5px;">
                     @Html.Partial("CommentsList", Model.CommentViewModels)
-                    <div class="comment-editor hidden">
+                    <div class="comment-editor hidden" style="margin-top: 10px;">
+
                         @using (Html.BeginForm("AddComment", "Comment", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
                             @Html.Hidden("QuestionId", Model.Question.Id)
-                            @Html.TextArea("Content", new { @class = "form-control" })
-                            <input type="submit" value="add comment" />
+                            @Html.TextArea("Content", new { @class = "form-control", @name="Content", @id = "CommentContent", @style ="margin-bottom: 5px" })
+                            <input type="submit" value="add comment" class="btn btn-success"/>
                         }
                     </div>
                 </div>
@@ -64,7 +67,7 @@
         </div>
     </div>
     <hr/>
-    @Html.Partial("AnswersList", Model.AnswersViewModels)
+    @Html.Partial("AnswersList", Model.AnswersViewModels, answerViewData)
     <button class="@if (!alreadyAnswered) { <text>hidden</text> } btn btn-default toggleAnswerEditor">Add new answer</button>
     <div class="@if (alreadyAnswered) { <text>hidden</text> } answer-editor-container">
         @Html.Partial("Answer", new AnswerViewModel(Model.Question.Id, User.DatabaseUser.Id))
@@ -120,7 +123,48 @@
     });
 
     $(".question-actions > span.add-comment").click(function () {
-        $(".question-comments .comment-editor").removeClass("hidden");
+        $(this).parent().parent().find(".question-comments .comment-editor").removeClass("hidden");
     });
 
+    $(".comment-details .vote-box-small .vote-up").click(function () {
+        var self = $(this);
+        var commentId= $(this).attr("data-commentId");
+        var $votesCountElement = $(this).parent().find(".votes-count span");
+
+        if ($(this).hasClass("vote-blocked")) return;
+
+        $.ajax(
+            {
+                url: '@Url.Action("VoteUp", "Comment")',
+                data: { "commentId": commentId },
+                dataType: "json",
+                method: "post",
+                success: function (data) {
+                    $votesCountElement.text(data.rankPoint);
+                    self.addClass("vote-blocked");
+                    self.parent().find(".vote-down").removeClass("vote-blocked");
+                }
+            });
+    });
+
+    $(".comment-details .vote-box-small .vote-down").click(function () {
+        var self = $(this);
+        var commentId = $(this).attr("data-commentId");
+        var $votesCountElement = $(this).parent().find(".votes-count span");
+
+        if ($(this).hasClass("vote-blocked")) return;
+
+        $.ajax(
+            {
+                url: '@Url.Action("VoteDown", "Comment")',
+                data: { "commentId": commentId },
+                dataType: "json",
+                method: "post",
+                success: function (data) {
+                    $votesCountElement.text(data.rankPoint);
+                    self.addClass("vote-blocked");
+                    self.parent().find(".vote-up").removeClass("vote-blocked");
+                }
+            });
+    });
 </script>

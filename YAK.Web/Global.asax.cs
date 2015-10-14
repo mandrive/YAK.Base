@@ -24,11 +24,11 @@ namespace Yak
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            
             _serviceContainer = new ServiceContainer();
             _serviceContainer.RegisterControllers(typeof(MvcApplication).Assembly);
             _serviceContainer.EnableMvc();
-            
+
             XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
 

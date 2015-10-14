@@ -5,7 +5,6 @@ using Yak.DTO;
 using Yak.Services.Interfaces;
 using Yak.Services.Utils;
 using Yak.Web.Models;
-using Yak.Web.Utils;
 using Yak.Web.BaseUtils;
 
 namespace Yak.Web.Controllers
@@ -18,7 +17,12 @@ namespace Yak.Web.Controllers
         private readonly IService<Vote> _voteService;
         private readonly IndexRebuilder _indexRebuilder;
 
-        public QuestionController(ISearchEngineExtendedService<Question> questionSearchService, IService<Question> questionService, IService<User> userService, IService<Vote> voteService, IndexRebuilder indexRebuilder)
+        public QuestionController(
+            ISearchEngineExtendedService<Question> questionSearchService,
+            IService<Question> questionService,
+            IService<User> userService,
+            IService<Vote> voteService,
+            IndexRebuilder indexRebuilder)
         {
             _questionSearchService = questionSearchService;
             _questionService = questionService;

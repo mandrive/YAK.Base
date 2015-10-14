@@ -115,9 +115,8 @@ namespace Yak.Services
                     {
                         var newTag = new Tag { Name = currentTag.Name };
                         _databaseContext.Tags.Add(newTag);
-                        _databaseContext.SaveChanges();
-
                         entity.Tags.Add(newTag);
+                        _databaseContext.SaveChanges();
                     }
                 }
             }

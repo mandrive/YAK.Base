@@ -7,17 +7,21 @@
     var blockVoteUpOption = comment.HasUserAlreadyVotedUp(User.DatabaseUser.Id);
     var blockVoteDownOption = comment.HasUserAlreadyVotedDown(User.DatabaseUser.Id);
 
-    <div class="comment-details">
-        <div class="vote-box">
-            <div class="vote-up @if (blockVoteUpOption) { <text>vote-blocked</text> }" data-commentId="@comment.Comment.Id"><i class="fa fa-arrow-circle-o-up fa-3 size-1em"></i></div>
+    <hr style="margin-top:5px; margin-bottom:5px;" />
+    <div class="comment-details" style="padding: 5px 5px 5px 5px;">
+        <div class="vote-box-small">
+            <div class="vote-up @if (blockVoteUpOption) { <text>vote-blocked</text> }" data-commentId="@comment.Comment.Id"><i class="fa fa-angle-up fa-3 size-1em"></i></div>
             <div class="votes-count"><span style="font-size: 1em;">@comment.Comment.RankPoint</span></div>
-            <div class="vote-down @if (blockVoteDownOption) { <text>vote-blocked</text> }" data-commentId="@comment.Comment.Id"><i class="fa fa-arrow-circle-o-down fa-3 size-1em"></i></div>
+            <div class="vote-down @if (blockVoteDownOption) { <text>vote-blocked</text> }" data-commentId="@comment.Comment.Id"><i class="fa fa-angle-down fa-3 size-1em"></i></div>
         </div>
-        <div class="comment-content">
-            @Html.Raw(comment.Comment.Content)
-            <p style="font-size: 9px; bottom: 0;">@comment.Comment.LastModificationDate.Humanize(true, DateTime.UtcNow, System.Globalization.CultureInfo.InvariantCulture) by @comment.Comment.Author.Username</p>
+        <div class="comment-content" style="min-height:4.3em; overflow: auto;">
+            <p>@Html.Raw(comment.Comment.Content)</p>
+            <div>
+                <span style="float:right;">@comment.Comment.LastModificationDate.Humanize(true, DateTime.UtcNow, System.Globalization.CultureInfo.InvariantCulture) by @comment.Comment.Author.Username</span>
+            </div>
             <div class="clearfix">
                 <div class="clearfix"></div>
+                
                 <div class="comment-actions">
                     @if (comment.Comment.Author.Id == User.DatabaseUser.Id)
                     {
@@ -28,47 +32,3 @@
         </div>
     </div>
 }
-
-<script type="text/javascript">
-    $(".comment-details .vote-box .vote-up").click(function () {
-        var self = $(this);
-        var commentId= $(this).attr("data-commentId");
-        var $votesCountElement = $(this).parent().find(".votes-count span");
-
-        if ($(this).hasClass("vote-blocked")) return;
-
-        $.ajax(
-            {
-                url: '@Url.Action("VoteUp", "Comment")',
-                data: { "commentId": commentId },
-                dataType: "json",
-                method: "post",
-                success: function (data) {
-                    $votesCountElement.text(data.rankPoint);
-                    self.addClass("vote-blocked");
-                    $(".comment-details .vote-box .vote-down").removeClass("vote-blocked");
-                }
-            });
-    });
-
-    $(".comment-details .vote-box .vote-down").click(function () {
-        var self = $(this);
-        var commentId = $(this).attr("data-commentId");
-        var $votesCountElement = $(this).parent().find(".votes-count span");
-
-        if ($(this).hasClass("vote-blocked")) return;
-
-        $.ajax(
-            {
-                url: '@Url.Action("VoteDown", "Comment")',
-                data: { "commentId": commentId },
-                dataType: "json",
-                method: "post",
-                success: function (data) {
-                    $votesCountElement.text(data.rankPoint);
-                    self.addClass("vote-blocked");
-                    $(".comment-details .vote-box .vote-up").removeClass("vote-blocked");
-                }
-            });
-    });
-</script>

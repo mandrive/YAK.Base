@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Yak.DTO;
 
 namespace Yak.Web.Models
@@ -6,7 +7,7 @@ namespace Yak.Web.Models
     public class AnswerViewModel
     {
         public Answer Answer { get; set; }
-
+        public IList<CommentViewModel> CommentViewModels { get; set; }
         public int QuestionId { get; set; }
 
         public AnswerViewModel()
@@ -17,6 +18,12 @@ namespace Yak.Web.Models
         public AnswerViewModel(Answer answer)
         {
             Answer = answer;
+            CommentViewModels = new List<CommentViewModel>();
+
+            foreach (var comment in answer.Comments)
+            {
+                CommentViewModels.Add(new CommentViewModel(comment));
+            }
         }
 
         public AnswerViewModel(int questionId, int userId)
